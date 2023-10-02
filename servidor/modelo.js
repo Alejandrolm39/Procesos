@@ -10,7 +10,7 @@ function Sistema(){
         else{
         console.log("el nick "+nick+" está en uso");
         }
-        return res;
+        return res; 
     }
 
     this.obtenerUsuarios=function(){
@@ -42,4 +42,6 @@ function Sistema(){
 function Usuario(nick){
     this.nick=nick;
 }
+
+module.exports.Sistema=Sistema
    

@@ -1,0 +1,17 @@
+{
+  "name": "procesos",
+  "version": "1.0.0",
+  "description": "Procesos curso 2023-3024",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "testW": "node_modules\\.bin\\jasmine-node servidor",
+    "test": "./node_modules/.bin/jasmine-node servidor"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jasmine-node": "^3.0.0"
+  }
+}
