@@ -5,6 +5,7 @@ function Sistema(){
         let res={"nick":-1};
         if (!this.usuarios[nick]){
         this.usuarios[nick]=new Usuario(nick);
+        console.log("el nick "+nick+" ha sido registrado");
         res.nick=nick;
         }
         else{
@@ -18,24 +19,27 @@ function Sistema(){
     }
 
     this.usuarioActivo=function(nick){
-        if (!this.usuarios[nick]){
-            return false;
-        }
-        else return true;
+        let bool = this.usuarios[nick]==undefined?false:true;
+        let res = {"res":bool};
+        return res;
     }
 
     this.eliminarUsuario=function(nick){
-        if (!this.usuarios[nick]){
-            console.log("No existe un usuario con nick " + nick);
-        }
-        else {
+        let res={"usuario_eliminado":-1};
+        if (this.usuarios[nick]){
             delete(this.usuarios[nick]);
             console.log("Se ha eliminado el usuario con nick " + nick);
+            res.usuario_eliminado = nick;
         }
+        else {
+            console.log("No existe un usuario con nick " + nick);
+        }
+        return res;
     }
 
     this.numeroUsuarios=function(){
-        return Object.keys(this.usuarios).length;
+        let res = {"num":Object.keys(this.usuarios).length}
+        return res;
     }
 }
 
