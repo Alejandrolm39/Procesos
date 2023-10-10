@@ -50,7 +50,7 @@ function ClienteRest(){
 
     this.UsuarioActivo=function(nick){
         var cli=this;
-        $.getJSON("/UsuarioActivo/"+nick,function(data){
+        $.getJSON("/usuarioActivo/"+nick,function(data){
             if (data.res == true){
                 console.log("Usuario "+nick+" esta activo")
             }
@@ -65,10 +65,13 @@ function ClienteRest(){
         $.getJSON("/eliminarUsuario/"+nick,function(data){
             if (data.usuario_eliminado != -1){
                 console.log("Usuario "+nick+" ha sido eliminado")
+                msg="Usuario "+nick+" ha sido eliminado";
             }
             else{
                 console.log("El usuario " + nick + " no se ha podido eliminar");
+                msg="El usuario " + nick + " no se ha podido eliminar";
             }
+            cw.mostrarMsg(msg);
         })
     }
 }

@@ -15,31 +15,43 @@
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand/logo -->
-        <a class="navbar-brand" href="./cliente/cincinaty.png">Logo</a>
+        <a class="navbar-brand" >
+            <img src = "./cliente/cincinaty.png"></img>
+        </a>
        
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 1</a>
+                <a class="nav-link" href="https://www.uc.edu/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
+                <a class="nav-link" href="https://admissions.uc.edu/information/international.html">Estudiantes internacionales</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 3</a>
+                <a class="nav-link" href="https://www.uc.edu/majors-programs.html">Programas</a>
             </li>
         </ul>
     </nav>
     <div class="container-fluid">
-        <h3>Brand / Logo</h3>
+        <h3>
+            <img src = "./cliente/logo.png" width="70" height="100"></img>
+        </h3>
         <p>Bienvenido a sinsons academy</p>
         <div id = "au"> </div>
+        <div id = "ou"> </div>
+        <div id = "nu"> </div>
+        <div id = "ua"> </div>
+        <div id = "eu"> </div>
     </div>
     <div id = "msg"> </div>
     <script>
         rest=new ClienteRest();
         cw=new ControlWeb();
         cw.mostrarAgregarUsuario();
+        cw.obtenerUsuarios();
+        cw.numeroUsuarios();
+        cw.usuarioActivo();
+        cw.eliminarUsuario();
     </script>
 </body>
 </html>
