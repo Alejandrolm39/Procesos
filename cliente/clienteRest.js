@@ -5,7 +5,8 @@ function ClienteRest(){
             if (data.nick!=-1){
                 console.log("Usuario "+nick+" ha sido registrado")
                 msg="Usuario " + nick + " ha sido regitrado";
-                localStorage.setItem("nick",nick);
+                // localStorage.setItem("nick",nick);
+                $.cookie("nick", nick);
             }
             else{
                 console.log("El nick ya está ocupado");
