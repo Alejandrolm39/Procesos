@@ -61,14 +61,14 @@ function ControlWeb(){
         let cadena='<div id="mUA" class="form-group">';
         cadena = cadena + '<h3>Usuario activo</h3>';
         cadena = cadena + '<label for="nick">Introduce el nick:</label>';
-        cadena = cadena + '<input type="text" class="form-control" id="nick">';
+        cadena = cadena + '<input type="text" class="form-control" id="UA">';
         cadena = cadena + '<button id="btnUA" type="submit" class="btn btn-primary">Submit</button>';
         cadena = cadena + '</div>';
         
-        $("#ua").append(cadena); //au es una etiqueta que viene de agregarUsuario
+        $("#ua").append(cadena); 
 
         $("#btnUA").on("click",function(){ 
-            let nick=$("#nick").val();
+            let nick=$("#UA").val();
             rest.UsuarioActivo(nick);
         })
     }
@@ -78,17 +78,37 @@ function ControlWeb(){
         let cadena='<div id="mEU" class="form-group">';
         cadena = cadena + '<h3>Eliminar usuario</h3>';
         cadena = cadena + '<label for="nick">Introduce el nick:</label>';
-        cadena = cadena + '<input type="text" class="form-control" id="nick">';
+        cadena = cadena + '<input type="text" class="form-control" id="EU">';
         cadena = cadena + '<button id="btnEU" type="submit" class="btn btn-primary">Submit</button>';
         cadena = cadena + '</div>';
         
         $("#eu").append(cadena); //au es una etiqueta que viene de agregarUsuario
 
         $("#btnEU").on("click",function(){ 
-            let nick=$("#nick").val();
+            let nick=$("#EU").val();
             if (nick){
                 rest.eliminarUsuario(nick);
             }
         })
     }
+
+    this.comprobarSesion=function(){
+        let nick=localStorage.getItem("nick");
+        if (nick){
+            cw.mostrarMsg("Bienvenido al sistema, "+nick);
+        }
+        else{
+            cw.mostrarAgregarUsuario();
+            cw.obtenerUsuarios();
+            cw.numeroUsuarios();
+            cw.usuarioActivo();
+            cw.eliminarUsuario();
+        }
+    }      
+    
+    this.salir=function(){
+        localStorage.removeItem("nick");
+        location.reload();
+    }
+       
 }

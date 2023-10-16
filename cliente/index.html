@@ -28,7 +28,7 @@
                 <a class="nav-link" href="https://admissions.uc.edu/information/international.html">Estudiantes internacionales</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.uc.edu/majors-programs.html">Programas</a>
+                <a class="nav-link" href="#" onclick=cw.salir()>Salir</a>
             </li>
         </ul>
     </nav>
@@ -47,11 +47,12 @@
     <script>
         rest=new ClienteRest();
         cw=new ControlWeb();
-        cw.mostrarAgregarUsuario();
-        cw.obtenerUsuarios();
-        cw.numeroUsuarios();
-        cw.usuarioActivo();
-        cw.eliminarUsuario();
+        cw.comprobarSesion();
+        // cw.mostrarAgregarUsuario();
+        // cw.obtenerUsuarios();
+        // cw.numeroUsuarios();
+        // cw.usuarioActivo();
+        // cw.eliminarUsuario();
     </script>
 </body>
 </html>
