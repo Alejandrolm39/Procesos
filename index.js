@@ -10,7 +10,7 @@ require("./servidor/passport-setup.js");
 let test=false; 
 test=eval(args[0]); //test=true
 const bodyParser=require("body-parser");
-
+const bcrypt = require("bcrypt");
 
 const PORT = process.env.PORT || 3000;
 

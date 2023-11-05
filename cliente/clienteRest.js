@@ -41,6 +41,15 @@ function ClienteRest(){
         $.getJSON("/obtenerUsuarios/",function(data){
             console.log(data);
         })
+
+        // msg = "";
+        // for (usuario in obtenerUsuarios) {
+        //     msg = msg + "\n Nombre: " + usuario;
+        // }
+
+        // if (msg == null) msg = "No hay usuarios";
+
+        // cw.mostrarMsg(msg);
     }
 
     this.numeroUsuarios=function(){
@@ -144,7 +153,7 @@ function ClienteRest(){
               $.cookie("nick", data.nick);
               cw.limpiar();
               cw.mostrarMsg("Bienvenid@ al sistema, " + data.nick);
-            //   cw.limpiar();
+              cw.limpiar();
               cw.mostrarAgregarUsuario();  
               cw.obtenerUsuarios();
               cw.numeroUsuarios();

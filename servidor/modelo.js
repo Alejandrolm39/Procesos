@@ -1,5 +1,6 @@
 const datos = require("./cad.js");
 const correo=require("./email.js");
+const bcrypt = require("bcrypt");
 
 function Sistema(test){
     this.usuarios={}; //this.usuarios=[]
@@ -66,12 +67,11 @@ function Sistema(test){
                 obj.confirmada=false; 
                 bcrypt.hash(obj.password, 10, function (err, hash) {
                     obj.password = hash;
-                    console.log(obj.password)
-                    console.log(obj.hash)
-                  });
-                modelo.cad.insertarUsuario(obj,function(res){
-                    callback(res);
+                    modelo.cad.insertarUsuario(obj,function(res){
+                        callback(res);
+                    });
                 });
+                console.log/({obj});
                 //correo.enviarEmail(obj.email,ob.key,"Confirmar cuenta");
                 correo.enviarEmail(obj.email,obj.key,"Confirmar cuenta");
                 correo.enviarEmail("alejandrolm35@gmail.com", "ss", "Hola");
@@ -100,17 +100,20 @@ function Sistema(test){
     }
 
     this.loginUsuario=function(obj,callback){
+        console.log({obj});
         this.cad.buscarUsuario({"email":obj.email, "confirmada":true},function(usr){
-            if (usr && usr.password){
-                if (usr && usr.password) {
+            if (usr){
+                if (usr.password) {
                     bcrypt.compare(obj.password, usr.password, function (err, result) {
                       if (err) {
                         console.error("Error al comparar contraseñas:", err);
-                        callback({ email: -1 });
+                        callback({ email: -1, err: "Error al comparar contraseñas"});
                       } else if (result) {
-                        callback(usr); // Contraseña válida
+                        callback(usr); // Contraseña válidas
                       } else {
-                        callback({ email: -1 }); // Contraseña incorrecta
+                        callback({ email: -1, err: "Usuario o contraseña incorrecta"}); // Contraseña incorrecta
+                        console.error({ email: -1, err: "Usuario o contraseña incorrecta"});
+                        console.error({result});
                       }
                     });
                 }
@@ -118,6 +121,8 @@ function Sistema(test){
             else
             {
                 callback({"email":-1});
+                console.error({ email: -1, err: "Usuario no encontrado"});
+                console.error({usr});
             }
         });
     }
