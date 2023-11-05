@@ -64,6 +64,11 @@ function Sistema(test){
                 //el usuario no existe, luego lo puedo registrar
                 obj.key=Date.now().toString();
                 obj.confirmada=false; 
+                bcrypt.hash(obj.password, 10, function (err, hash) {
+                    obj.password = hash;
+                    console.log(obj.password)
+                    console.log(obj.hash)
+                  });
                 modelo.cad.insertarUsuario(obj,function(res){
                     callback(res);
                 });
@@ -79,27 +84,43 @@ function Sistema(test){
     }
 
     this.confirmarUsuario=function(obj,callback){
-        this.cad.buscarUsuario({"email":obj.email,"confirmada":false,"key":obj.key},function(usr){
-            if(usr){
-                usr.confimada=true;
+        let modelo=this;
+        this.cad.buscarUsuario({email:obj.email,confirmada:false,key:obj.key},function(usr){
+            if (usr){
+                usr.confirmada=true;
                 modelo.cad.actualizarUsuario(usr,function(res){
-                    callback({"email":res.email});
+                    callback({"email":res.email}); //callback(res)
                 })
+            }
+            else
+            {
+                callback({"email":-1});
             }
         })
     }
 
-    // this.loginUsuario=function(obj,callback){
-    //     this.cad.buscarUsuario({"email":obj.email, "confirmada":true},function(usr){
-    //         if (usr && obj.pwd==usr.password){
-    //             callback(usr);
-    //         }
-    //         else
-    //         {
-    //             callback({"email":-1});
-    //         }
-    //     });
-    // }
+    this.loginUsuario=function(obj,callback){
+        this.cad.buscarUsuario({"email":obj.email, "confirmada":true},function(usr){
+            if (usr && usr.password){
+                if (usr && usr.password) {
+                    bcrypt.compare(obj.password, usr.password, function (err, result) {
+                      if (err) {
+                        console.error("Error al comparar contraseñas:", err);
+                        callback({ email: -1 });
+                      } else if (result) {
+                        callback(usr); // Contraseña válida
+                      } else {
+                        callback({ email: -1 }); // Contraseña incorrecta
+                      }
+                    });
+                }
+            }    
+            else
+            {
+                callback({"email":-1});
+            }
+        });
+    }
 
     if (!this.test){
         this.cad.conectar(function(){

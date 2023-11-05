@@ -115,12 +115,14 @@ function ClienteRest(){
                 if (data.nick!=-1){
                     console.log("Usuario "+data.nick+" ha sido registrado");
                     // $.cookie("nick",data.nick);
+                    // cw.mostrarMsg("Esperando confirmación, verifica tu correo");
                     cw.limpiar();
                     // cw.mostrarMsg("Bienvenido al sistema, "+data.nick);
                     // cw.mostrarLogin();
                 }
                 else{
                 console.log("El nick está ocupado");
+                cw.mostrarMsg("Ya existe una cuenta con ese correo");
                 }
             },
             error:function(xhr, textStatus, errorThrown){
@@ -131,30 +133,42 @@ function ClienteRest(){
         });
     }
 
-    // this.loginUsuario=function(email,password){
-    //     $.ajax({
-    //         type:'POST',
-    //         url:'/loginUsuario',
-    //         data: JSON.stringify({"email":email,"password":password}),
-    //         success:function(data){
-    //             if (data.nick!=-1){
-    //                 console.log("Usuario "+data.nick+" ha sido registrado");
-    //                 $.cookie("nick",data.nick);
-    //                 cw.limpiar();
-    //                 cw.mostrarMsg("Bienvenido al sistema, "+data.nick);
-    //                 // cw.mostrarLogin();
-    //             }
-    //             else{
-    //             console.log("No se pudo iniciar sesión");
-    //             cw.mostrarMsg("No se puedo iniciar sesión");
-    //             }
-    //         },
-    //         error:function(xhr, textStatus, errorThrown){
-    //             console.log("Status: " + textStatus);
-    //             console.log("Error: " + errorThrown);
-    //         },
-    //         contentType:'application/json'
-    //     });
-    // }
+    this.loginUsuario = function (email, password) {
+        $.ajax({
+          type: "POST",
+          url: "/loginUsuario",
+          data: JSON.stringify({ email: email, password: password }),
+          success: function (data) {
+            if (data.nick != -1) {
+              console.log("Usuario " + data.nick + " ha sido loggeado");
+              $.cookie("nick", data.nick);
+              cw.limpiar();
+              cw.mostrarMsg("Bienvenid@ al sistema, " + data.nick);
+            //   cw.limpiar();
+              cw.mostrarAgregarUsuario();  
+              cw.obtenerUsuarios();
+              cw.numeroUsuarios();
+              cw.usuarioActivo();
+              cw.eliminarUsuario();
+            } else {
+              console.log("No se puede iniciar sesión");
+              cw.mostrarMsg("No se puede iniciar sesión");
+            //   cw.limpiar();
+            }
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+          },
+          contentType: "application/json",
+        });
+      };  
+
+      this.cerrarSesion = function () {
+        $.getJSON("/cerrarSesion", function () {
+          console.log("Sesión cerrada");
+          $.removeCookie("nick");
+        });
+      };
 }
     

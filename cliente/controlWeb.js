@@ -101,16 +101,15 @@ function ControlWeb(){
         // localStorage.getItem("nick");
         if (nick){
             cw.mostrarMsg("Bienvenido al sistema, "+nick);
+            cw.mostrarAgregarUsuario(); 
+            cw.obtenerUsuarios();
+            cw.numeroUsuarios();
+            cw.usuarioActivo();
+            cw.eliminarUsuario();
         }
         else{
-            // cw.mostrarAgregarUsuario();
-            // cw.mostrarRegistro();   
-            // cw.obtenerUsuarios();
-            // cw.numeroUsuarios();
-            // cw.usuarioActivo();
-            // cw.eliminarUsuario();
-
-            cw.init();
+          // cw.mostrarLogin();
+          cw.init();
         }
     }      
 
@@ -135,9 +134,9 @@ function ControlWeb(){
        
     
     this.salir=function(){
-        // localStorage.removeItem("nick");
         $.removeCookie("nick");
         location.reload();
+        rest.cerrarSesion();
     }
 
     this.limpiar=function(){
@@ -146,6 +145,8 @@ function ControlWeb(){
         $("#nu").remove();
         $("#ua").remove();
         $("#eu").remove();
+        $("#fmLogin").remove();
+        $("#fmRegistro").remove();
     }
 
     this.mostrarRegistro=function(){
@@ -154,6 +155,7 @@ function ControlWeb(){
         }
         $("#BienvenidoText").hide();
         $("#fmRegistro").remove();
+        $("#fmLogin").remove();
         $("#registro").load("./cliente/registro.html",function(){
             $("#btnRegistro").on("click",function(){
                 let email=$("#email").val();
@@ -166,21 +168,53 @@ function ControlWeb(){
         });
     }
 
-    // this.mostrarLogin=function(){
-    //     if ($.cookie("nick")) {
-    //         return true;
-    //     }
-    //     $("#fmLogin").remove();
-    //     $("#registro").load("./cliente/login.html",function(){
-    //         $("#btnLogin").on("click",function(){
-    //             let email=$("#email").val();
-    //             let pwd=$("#pwd").val();
-    //             if (email && pwd){
-    //                 rest.loginUsuario(nick);
-    //                 console.log(email+" "+pwd);
-    //             }
-    //         });
-    //     });
-    // }
+    this.mostrarLogin = function () {
+        if ($.cookie("nick")) {
+          return true;
+        }
+        $("#BienvenidoText").hide();
+        $("#fmLogin").remove();
+        $("#fmRegistro").remove();
+        $("#login").load("./cliente/login.html", function () {
+          $("#btnLogin").on("click", function () {
+            let email = $("#email").val();
+            let pwd = $("#pwd").val();
+            if (email && pwd) {
+              rest.loginUsuario(email, pwd);
+              console.log(email + " " + pwd);
+            }
+          });
+        });
+      };
+
+      this.buscarUsuario = function (obj, callback) {
+        buscar(this.usuarios, { email: obj.email }, callback);
+      };
+    
+      this.insertarUsuario = function (usuario, callback) {
+        insertar(this.usuarios, usuario, callback);
+      };
+    
+      function buscar(coleccion, criterio, callback) {
+        let col = coleccion;
+        coleccion.find(criterio).toArray(function (error, usuarios) {
+          if (usuarios.length == 0) {
+            callback(undefined);
+          } else {
+            callback(usuarios[0]);
+          }
+        });
+      }
+    
+      function insertar(coleccion, elemento, callback) {
+        coleccion.insertOne(elemento, function (err, result) {
+          if (err) {
+            console.log("error");
+          } else {
+            console.log("Nuevo elemento creado");
+            callback(elemento);
+          }
+        });
+      }
        
 }

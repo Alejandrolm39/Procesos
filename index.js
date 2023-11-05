@@ -5,6 +5,7 @@ const passport=require("passport");
 const cookieSession=require("cookie-session");
 const modelo = require("./servidor/modelo.js");
 const args = process.argv.slice(2); 
+const LocalStrategy = require('passport-local').Strategy;
 require("./servidor/passport-setup.js");
 let test=false; 
 test=eval(args[0]); //test=true
@@ -12,6 +13,15 @@ const bodyParser=require("body-parser");
 
 
 const PORT = process.env.PORT || 3000;
+
+const haIniciado=function(request,response,next){
+    if (request.user){
+        next();
+    }
+    else{
+        response.redirect("/")
+    }
+}
 
 app.use(express.static(__dirname + "/"));
 
@@ -22,6 +32,20 @@ app.use(cookieSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new
+    LocalStrategy({usernameField:"email",passwordField:"password"},
+    function(email,password,done){
+        sistema.loginUsuario({"email":email,"password":password},function(user){
+            if(user.email!=-1){
+                return done(null,user);
+            }
+            else{
+                return done(-1);
+            }
+        })
+    }
+));
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -34,14 +58,16 @@ app.get('/google/callback',
         res.redirect('/good');
 });
 
+let sistema = new modelo.Sistema(test);
+
 app.get("/good", function(request,response){
-    let nick = request.user.emails[0].value;
-    if(nick){
-        sistema.agregarUsuario(nick);
-    }
+    // let nick = request.user.emails[0].value;
+    // if(nick){
+    //     sistema.agregarUsuario(nick);
+    // }
     let email=request.user.emails[0].value;
-    sistema.usuarioGoogle({"email":email}, function(usr){
-        response.cookie('nick',usr.email);
+    sistema.usuarioGoogle({email:email}, function(usr){
+        response.cookie("nick",usr.email);
         response.redirect('/');
     });
 });
@@ -49,8 +75,6 @@ app.get("/good", function(request,response){
 app.get("/fallo",function(request,response){
     response.send({nick:"nook"})
 });   
-
-let sistema = new modelo.Sistema(test);
 
 app.get("/", function(request,response){
     var contenido=fs.readFileSync(__dirname+"/cliente/index.html");
@@ -64,7 +88,7 @@ app.get("/agregarUsuario/:nick",function(request,response){
     response.send(res);
 });
 
-app.get("/obtenerUsuarios",function(request, response){
+app.get("/obtenerUsuarios",haIniciado,function(request, response){
     let res=sistema.obtenerUsuarios();
     response.send(res);
 });
@@ -91,31 +115,41 @@ app.post('/enviarJwt',function(request,response){
     let user=JSON.parse(atob(jwt.split(".")[1]));
     let email=user.email;
     sistema.usuarioGoogle({"email":email},function(obj){
-        response.send({"nick":obj.email});
+        response.send({'nick':obj.email});
     })
 }); 
 
 app.post("/registrarUsuario",function(request,response){
     sistema.registrarUsuario(request.body,function(res){
-        response.send({"nick":res.email});
+        response.send({nick:res.email});
     });
 });
 
-// app.post("/loginUsuario",function(request,response){
-//     sistema.loginUsuario(request.body,function(res){
-//         response.send({"nick":res.email});
-//     });
-// });
+app.post('/loginUsuario',passport.authenticate("local",{failureRedirect:"/fallo",successRedirect: "/ok"}));
 
-app.get("/confirmarUsuario",function(request, response){
-    let email=request.params.email;
-    let key=request.params.key;
-    sistema.confirmarUsuario({email:email,key:key},function(usr){
-        response.cookie('nick',usr.email);
-        response.redirect('/');
-    })
-})
-    
+app.get("/ok", function (request, response) {
+    response.send({ "nick": request.user.email });
+});
+
+app.get("/confirmarUsuario/:email/:key", function (request, response) {
+    let email = request.params.email;
+    let key = request.params.key;
+    sistema.confirmarUsuario({ "email": email, "key": key }, function (usr) {
+      if (usr.email != -1) {
+        response.cookie("nick", usr.email);
+      }
+      response.redirect("/");
+    });
+});
+
+app.get("/cerrarSesion", haIniciado, function (request, response) {
+    let nick = request.user.nick;
+    request.logout();
+    response.redirect("/");
+    if (nick) {
+      sistema.eliminarUsuario(nick);
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`App está escuchando en el puerto ${PORT}`);
