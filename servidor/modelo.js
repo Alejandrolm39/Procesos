@@ -1,5 +1,10 @@
-function Sistema(){
+const datos = require("./cad.js");
+const correo=require("./email.js");
+
+function Sistema(test){
     this.usuarios={}; //this.usuarios=[]
+    this.test=test;
+    this.cad= new datos.CAD();
 
     this.agregarUsuario=function(nick){
         let res={"nick":-1};
@@ -12,6 +17,13 @@ function Sistema(){
         console.log("el nick "+nick+" está en uso");
         }
         return res; 
+    }
+
+    this.usuarioGoogle=function(usr, callback){
+        this.cad.buscarOCrearUsuario(usr,function(res){
+            console.log("El usuario " + res.email + " está registrado en el sistema");
+            callback(res);
+        });
     }
 
     this.obtenerUsuarios=function(){
@@ -40,6 +52,59 @@ function Sistema(){
     this.numeroUsuarios=function(){
         let res = {"num":Object.keys(this.usuarios).length}
         return res;
+    }
+
+    this.registrarUsuario=function(obj,callback){
+        let modelo=this;
+        if (!obj.nick){
+            obj.nick=obj.email;
+        }
+        this.cad.buscarUsuario(obj,function(usr){
+            if (!usr){
+                //el usuario no existe, luego lo puedo registrar
+                obj.key=Date.now().toString();
+                obj.confirmada=false; 
+                modelo.cad.insertarUsuario(obj,function(res){
+                    callback(res);
+                });
+                //correo.enviarEmail(obj.email,ob.key,"Confirmar cuenta");
+                correo.enviarEmail(obj.email,obj.key,"Confirmar cuenta");
+                correo.enviarEmail("alejandrolm35@gmail.com", "ss", "Hola");
+            }
+            else
+            {
+                callback({"email":-1});
+            }
+        });
+    }
+
+    this.confirmarUsuario=function(obj,callback){
+        this.cad.buscarUsuario({"email":obj.email,"confirmada":false,"key":obj.key},function(usr){
+            if(usr){
+                usr.confimada=true;
+                modelo.cad.actualizarUsuario(usr,function(res){
+                    callback({"email":res.email});
+                })
+            }
+        })
+    }
+
+    // this.loginUsuario=function(obj,callback){
+    //     this.cad.buscarUsuario({"email":obj.email, "confirmada":true},function(usr){
+    //         if (usr && obj.pwd==usr.password){
+    //             callback(usr);
+    //         }
+    //         else
+    //         {
+    //             callback({"email":-1});
+    //         }
+    //     });
+    // }
+
+    if (!this.test){
+        this.cad.conectar(function(){
+            console.log("Conectando a Mongo Atlas");
+        })
     }
 }
 

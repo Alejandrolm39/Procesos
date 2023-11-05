@@ -1,3 +1,5 @@
+const correo=require("./email.js");
+
 function Sistema(){
     this.usuarios={}; //this.usuarios=[]
 
@@ -41,6 +43,43 @@ function Sistema(){
         let res = {"num":Object.keys(this.usuarios).length}
         return res;
     }
+
+    this.registrarUsuario=function(obj,callback){
+        let modelo=this;
+        if (!obj.nick){
+            obj.nick=obj.email;
+        }
+        this.cad.buscarUsuario(obj,function(usr){
+            if (!usr){
+                //el usuario no existe, luego lo puedo registrar
+                obj.key=Date.now().toString();
+                obj.confirmada=false; 
+                modelo.cad.insertarUsuario(obj,function(res){
+                    callback(res);
+                });
+                //correo.enviarEmail(obj.email,ob.key,"Confirmar cuenta");
+                correo.enviarEmail(obj.email,obj,"Confirmar cuenta");
+
+            }
+            else
+            {
+                callback({"email":-1});
+            }
+        });
+    }
+
+    this.loginUsuario=function(obj,callback){
+        this.cad.buscarUsuario({"email":obj.email, "confirmada":true},function(usr){
+            if (usr && obj.pwd==usr.password){
+                callback(usr);
+            }
+            else
+            {
+                callback({"email":-1});
+            }
+        });
+    }
+        
 }
 
 function Usuario(nick){

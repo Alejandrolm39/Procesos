@@ -103,18 +103,84 @@ function ControlWeb(){
             cw.mostrarMsg("Bienvenido al sistema, "+nick);
         }
         else{
-            cw.mostrarAgregarUsuario();
-            cw.obtenerUsuarios();
-            cw.numeroUsuarios();
-            cw.usuarioActivo();
-            cw.eliminarUsuario();
+            // cw.mostrarAgregarUsuario();
+            // cw.mostrarRegistro();   
+            // cw.obtenerUsuarios();
+            // cw.numeroUsuarios();
+            // cw.usuarioActivo();
+            // cw.eliminarUsuario();
+
+            cw.init();
         }
     }      
+
+    this.init=function(){
+        let cw=this;
+        google.accounts.id.initialize({ 
+            client_id:"562859105000-j1ej97neoqcqomu2a0iltcf203majt7j.apps.googleusercontent.com", //prod
+            auto_select:false,
+            callback:cw.handleCredentialsResponse
+        });
+        google.accounts.id.prompt();
+    }
+
+    this.handleCredentialsResponse=function(response){
+        let jwt=response.credential;
+        // let user=JSON.parse(atob(jwt.split(".")[1]));
+        // console.log(user.name);
+        // console.log(user.email);
+        // console.log(user.picture);
+        rest.enviarJwt(jwt);
+    }
+       
     
     this.salir=function(){
         // localStorage.removeItem("nick");
         $.removeCookie("nick");
         location.reload();
     }
+
+    this.limpiar=function(){
+        $("#au").remove();
+        $("#ou").remove();
+        $("#nu").remove();
+        $("#ua").remove();
+        $("#eu").remove();
+    }
+
+    this.mostrarRegistro=function(){
+        if ($.cookie("nick")) {
+            return true;
+        }
+        $("#BienvenidoText").hide();
+        $("#fmRegistro").remove();
+        $("#registro").load("./cliente/registro.html",function(){
+            $("#btnRegistro").on("click",function(){
+                let email=$("#email").val();
+                let pwd=$("#pwd").val();
+                if (email && pwd){
+                    rest.registrarUsuario(email, pwd);
+                    console.log(email + " " + pwd);
+                }
+            });
+        });
+    }
+
+    // this.mostrarLogin=function(){
+    //     if ($.cookie("nick")) {
+    //         return true;
+    //     }
+    //     $("#fmLogin").remove();
+    //     $("#registro").load("./cliente/login.html",function(){
+    //         $("#btnLogin").on("click",function(){
+    //             let email=$("#email").val();
+    //             let pwd=$("#pwd").val();
+    //             if (email && pwd){
+    //                 rest.loginUsuario(nick);
+    //                 console.log(email+" "+pwd);
+    //             }
+    //         });
+    //     });
+    // }
        
 }

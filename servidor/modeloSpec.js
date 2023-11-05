@@ -4,7 +4,7 @@ describe('El sistema', function() {
   let sistema;
   
   beforeEach(function() {
-    sistema=new modelo.Sistema()
+    sistema=new modelo.Sistema(true)
   });
   
   it('inicialmente no hay usuarios', function() {
