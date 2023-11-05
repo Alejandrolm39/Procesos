@@ -51,6 +51,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.get("/auth/google",passport.authenticate('google', { scope: ['profile','email'] }));
+app.get("/auth/github",passport.authenticate('github', { scope: ["user:email"] }));
 
 app.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/fallo' }),
@@ -58,19 +59,48 @@ app.get('/google/callback',
         res.redirect('/good');
 });
 
+app.get('/github/callback',
+    passport.authenticate('github', { failureRedirect: '/fallo' }),
+    function(req, res) {
+        res.redirect('/good');
+});
+
 let sistema = new modelo.Sistema(test);
 
-app.get("/good", function(request,response){
-    // let nick = request.user.emails[0].value;
-    // if(nick){
-    //     sistema.agregarUsuario(nick);
-    // }
-    let email=request.user.emails[0].value;
-    sistema.usuarioGoogle({email:email}, function(usr){
-        response.cookie("nick",usr.email);
-        response.redirect('/');
-    });
-});
+// app.get("/good", function(request,response){
+//     // let nick = request.user.emails[0].value;
+//     // if(nick){
+//     //     sistema.agregarUsuario(nick);
+//     // }
+//     let email=request.user.emails[0].value;
+//     sistema.usuarioGoogle({email:email}, function(usr){
+//         response.cookie("nick",usr.email);
+//         response.redirect('/');
+//     });
+// });
+
+app.get("/good", function (req, res) {
+    switch (req.user.provider) {
+      case "google":
+        let email = req.user.emails[0].value;
+        sistema.usuarioOAuth({ email: email }, function (obj) {
+          res.cookie("nick", obj.email);
+          res.redirect("/");
+        });
+        break;
+      case "github":
+        console.log(req.user);
+        let email2 = req.user.username;
+        sistema.usuarioOAuth({ email: email2 }, function (obj) {
+          res.cookie("nick", obj.email);
+          res.redirect("/");
+        });
+        break;
+      default:
+        res.redirect("/");
+        break;
+    }
+  });
 
 app.get("/fallo",function(request,response){
     response.send({nick:"nook"})
@@ -82,7 +112,7 @@ app.get("/", function(request,response){
     response.send(contenido);
 });
 
-app.get("/agregarUsuario/:nick",function(request,response){
+app.get("/agregarUsuario/:nick",haIniciado,function(request,response){
     let nick=request.params.nick;
     let res=sistema.agregarUsuario(nick);
     response.send(res);
@@ -93,18 +123,18 @@ app.get("/obtenerUsuarios",haIniciado,function(request, response){
     response.send(res);
 });
 
-app.get("/usuarioActivo/:nick",function(request,response){
+app.get("/usuarioActivo/:nick",haIniciado,function(request,response){
     let nick=request.params.nick;
     let res=sistema.usuarioActivo(nick);
     response.send(res);
 });
 
-app.get("/numeroUsuarios",function(request,response){
+app.get("/numeroUsuarios",haIniciado,function(request,response){
     let res=sistema.numeroUsuarios();
     response.send(res);
 });
 
-app.get("/eliminarUsuario/:nick",function(request,response){
+app.get("/eliminarUsuario/:nick",haIniciado,function(request,response){
     let nick=request.params.nick;
     let res=sistema.eliminarUsuario(nick);
     response.send(res);

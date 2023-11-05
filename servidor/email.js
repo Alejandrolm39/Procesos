@@ -12,12 +12,24 @@ const transporter = nodemailer.createTransport({
 //send();
 
 module.exports.enviarEmail=async function(direccion, key,men) {
+    const correoHTML = `
+        <html>
+            <body style="font-family: Arial, sans-serif; text-align: center;">
+                <h1 style="color: #007BFF;">¡Bienvenido a Sistema!</h1>
+                <p style="font-size: 18px;">Para confirmar tu cuenta, por favor haz clic en el siguiente enlace:</p>
+                <p style="font-size: 18px;">
+                    <a href="${url}confirmarUsuario/${direccion}/${key}" style="text-decoration: none; background-color: #007BFF; color: #fff; padding: 10px 20px; border-radius: 5px; display: inline-block;">Confirmar cuenta</a>
+                </p>
+            </body>
+        </html>
+    `;
     const result = await transporter.sendMail({
         from: 'alejandrolm35@gmail.com',
         to: direccion,
         subject: 'Confirmar cuenta',
         text: 'Pulsa aquí para confirmar cuenta',
-        html: '<p>Bienvenido a Sistema</p><p><a href="'+url+'confirmarUsuario/'+direccion+'/'+key+'">Pulsa aquí para confirmar cuenta</a></p>'
+        html: correoHTML
+        // '<p>Bienvenido a Sistema</p><p><a href="'+url+'confirmarUsuario/'+direccion+'/'+key+'">Pulsa aquí para confirmar cuenta</a></p>'
     });
     console.log(JSON.stringify(result, null, 4));
 }   

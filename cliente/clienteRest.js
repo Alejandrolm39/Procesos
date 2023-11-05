@@ -153,7 +153,7 @@ function ClienteRest(){
               $.cookie("nick", data.nick);
               cw.limpiar();
               cw.mostrarMsg("Bienvenid@ al sistema, " + data.nick);
-              cw.limpiar();
+            //   cw.limpiar();
               cw.mostrarAgregarUsuario();  
               cw.obtenerUsuarios();
               cw.numeroUsuarios();

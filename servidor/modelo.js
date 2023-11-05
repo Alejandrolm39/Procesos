@@ -20,12 +20,24 @@ function Sistema(test){
         return res; 
     }
 
-    this.usuarioGoogle=function(usr, callback){
-        this.cad.buscarOCrearUsuario(usr,function(res){
-            console.log("El usuario " + res.email + " está registrado en el sistema");
-            callback(res);
+    // this.usuarioOAuth=function(usr, callback){
+    //     this.cad.buscarOCrearUsuario(usr,function(res){
+    //         console.log("El usuario " + res.email + " está registrado en el sistema");
+    //         callback(res);
+    //     });
+    // }
+
+    this.usuarioOAuth = function (usr, callback) {
+        let copia = usr;
+        usr.confirmada = true;
+        this.cad.buscarOCrearUsuario(usr, function (obj) {
+          if (obj.email == null) {
+            console.log("El usuario " + usr.email + " ya estaba registrado");
+            obj.email = copia;
+          }
+          callback(obj);
         });
-    }
+      };
 
     this.obtenerUsuarios=function(){
         return this.usuarios;
