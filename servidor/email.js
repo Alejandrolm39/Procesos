@@ -15,7 +15,7 @@ module.exports.enviarEmail=async function(direccion, key,men) {
     const correoHTML = `
         <html>
             <body style="font-family: Arial, sans-serif; text-align: center;">
-                <h1 style="color: #007BFF;">¡Bienvenido a Sistema!</h1>
+                <h1 style="color: #007BFF;">¡Bienvenido al Sistema!</h1>
                 <p style="font-size: 18px;">Para confirmar tu cuenta, por favor haz clic en el siguiente enlace:</p>
                 <p style="font-size: 18px;">
                     <a href="${url}confirmarUsuario/${direccion}/${key}" style="text-decoration: none; background-color: #007BFF; color: #fff; padding: 10px 20px; border-radius: 5px; display: inline-block;">Confirmar cuenta</a>

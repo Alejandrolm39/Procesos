@@ -4,7 +4,7 @@ function ClienteRest(){
         $.getJSON("/agregarUsuario/"+nick,function(data){
             if (data.nick!=-1){
                 console.log("Usuario "+nick+" ha sido registrado")
-                msg="Usuario " + nick + " ha sido regitrado";
+                msg="Usuario " + nick + " ha sido registrado";
                 // localStorage.setItem("nick",nick);
                 $.cookie("nick", nick);
             }
@@ -39,23 +39,20 @@ function ClienteRest(){
     this.obtenerUsuarios=function(){
         var cli=this;
         $.getJSON("/obtenerUsuarios/",function(data){
-            console.log(data);
+            var usuarios = Object.keys(data); // Obtiene las claves (nombres de usuario) del objeto
+            var nombresUsuarios = usuarios.map(function (usuario) {
+                return data[usuario].nick; // Obtiene el nombre de usuario para cada clave
+            });
+            console.log(nombresUsuarios);
+            cw.mostrarMsg(JSON.stringify("Los usuarios agregados son: " + nombresUsuarios))
         })
-
-        // msg = "";
-        // for (usuario in obtenerUsuarios) {
-        //     msg = msg + "\n Nombre: " + usuario;
-        // }
-
-        // if (msg == null) msg = "No hay usuarios";
-
-        // cw.mostrarMsg(msg);
     }
 
     this.numeroUsuarios=function(){
         var cli=this;
         $.getJSON("/numeroUsuarios/",function(data){
             console.log(data);
+            cw.mostrarMsg("Número de usuarios: " + data.num);
         })
     }
 
@@ -64,10 +61,13 @@ function ClienteRest(){
         $.getJSON("/usuarioActivo/"+nick,function(data){
             if (data.res == true){
                 console.log("Usuario "+nick+" esta activo")
+                msg="El usuario " + nick + " está activo";
             }
             else{
                 console.log("Usuario "+nick+" no esta activo");
+                msg="El usuario " + nick + " no está activo";
             }
+            cw.mostrarMsg(msg);
         })
     }
 
@@ -127,7 +127,7 @@ function ClienteRest(){
                     // cw.mostrarMsg("Esperando confirmación, verifica tu correo");
                     cw.limpiar();
                     // cw.mostrarMsg("Bienvenido al sistema, "+data.nick);
-                    // cw.mostrarLogin();
+                    cw.mostrarLogin();
                 }
                 else{
                 console.log("El nick está ocupado");
