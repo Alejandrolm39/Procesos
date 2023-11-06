@@ -7,7 +7,7 @@ function ControlWeb(){
         cadena = cadena + '<label for="nick">Agregar un nuevo usuario:</label>';
         cadena = cadena + '<p><input type="text" class="form-control" id="nick" placeholder="Introduce un nick"></p>';
         cadena = cadena + '<button id="btnAU" type="submit" class="btn btn-primary" style="background-color: #a9a9a9; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-size: 18px;">Agregar Usuario</button>';
-        cadena = cadena + '<style>#btnAU:hover {}</style>'
+        cadena = cadena + '<style>#btnAU:hover {background-color: #333;}</style>'
         cadena = cadena + '</div>';
         cadena = cadena + '</div></div></div>'; 
         

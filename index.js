@@ -144,7 +144,7 @@ app.post('/enviarJwt',function(request,response){
     let jwt=request.body.jwt;
     let user=JSON.parse(atob(jwt.split(".")[1]));
     let email=user.email;
-    sistema.usuarioGoogle({"email":email},function(obj){
+    sistema.usuarioOAuth({"email":email},function(obj){
         response.send({'nick':obj.email});
     })
 }); 
