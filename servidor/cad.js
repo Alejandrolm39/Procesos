@@ -9,8 +9,8 @@ function CAD(){
         buscarOCrear(this.usuarios,usr,callback);
     }
 
-    this.buscarUsuario=function(obj,callback){
-        buscar(this.usuarios,{ email: obj.email },callback);
+    this.buscarUsuario=function(criterio,callback){
+        buscar(this.usuarios,criterio,callback);
     }
 
     this.actualizarUsuario=function(obj,callback){

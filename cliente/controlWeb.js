@@ -27,6 +27,12 @@ function ControlWeb(){
         $('#msg').append(cadena);
     }
 
+    this.mostrarMsgError=function(msg){
+      $('#mMsgError').remove();
+      let cadena = '<h6 id="mMsgError">' + msg + '<h6>';
+      $('#msgE').append(cadena);
+  }
+
     this.obtenerUsuarios=function(){
         // $("#mAU").remove();
         let cadena='<div id="mOU">';
@@ -121,7 +127,7 @@ function ControlWeb(){
     this.init=function(){
         let cw=this;
         google.accounts.id.initialize({ 
-            client_id:"562859105000-j1ej97neoqcqomu2a0iltcf203majt7j.apps.googleusercontent.com", //prod
+            client_id:"562859105000-98usk2tt5531rnb2v9nt17uuoasjd011.apps.googleusercontent.com", //prod
             auto_select:false,
             callback:cw.handleCredentialsResponse
         });

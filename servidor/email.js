@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer'); // npm install nodemailer
 const url="http://localhost:3000/";
+const url2="https://arqbase-gh-co5nc3waja-ew.a.run.app/google/callback";
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -18,7 +19,7 @@ module.exports.enviarEmail=async function(direccion, key,men) {
                 <h1 style="color: #007BFF;">¡Bienvenido al Sistema!</h1>
                 <p style="font-size: 18px;">Para confirmar tu cuenta, por favor haz clic en el siguiente enlace:</p>
                 <p style="font-size: 18px;">
-                    <a href="${url}confirmarUsuario/${direccion}/${key}" style="text-decoration: none; background-color: #007BFF; color: #fff; padding: 10px 20px; border-radius: 5px; display: inline-block;">Confirmar cuenta</a>
+                    <a href="${url2}confirmarUsuario/${direccion}/${key}" style="text-decoration: none; background-color: #007BFF; color: #fff; padding: 10px 20px; border-radius: 5px; display: inline-block;">Confirmar cuenta</a>
                 </p>
             </body>
         </html>

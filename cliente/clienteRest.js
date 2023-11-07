@@ -131,7 +131,7 @@ function ClienteRest(){
                 }
                 else{
                 console.log("El nick está ocupado");
-                cw.mostrarMsg("Ya existe una cuenta con ese correo");
+                cw.mostrarMsgError("Ya existe una cuenta con ese correo");
                 }
             },
             error:function(xhr, textStatus, errorThrown){
@@ -149,6 +149,7 @@ function ClienteRest(){
           data: JSON.stringify({ email: email, password: password }),
           success: function (data) {
             if (data.nick != -1) {
+                // console.log(data);
               console.log("Usuario " + data.nick + " ha sido loggeado");
               $.cookie("nick", data.nick);
               cw.limpiar();
@@ -161,7 +162,7 @@ function ClienteRest(){
               cw.eliminarUsuario();
             } else {
               console.log("No se puede iniciar sesión");
-              cw.mostrarMsg("No se puede iniciar sesión");
+              cw.mostrarMsgError("No se puede iniciar sesión");
             //   cw.limpiar();
             }
           },

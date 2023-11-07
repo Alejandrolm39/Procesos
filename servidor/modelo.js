@@ -72,7 +72,7 @@ function Sistema(test){
         if (!obj.nick){
             obj.nick=obj.email;
         }
-        this.cad.buscarUsuario(obj,function(usr){
+        this.cad.buscarUsuario({"email":obj.email},function(usr){
             if (!usr){
                 //el usuario no existe, luego lo puedo registrar
                 obj.key=Date.now().toString();
