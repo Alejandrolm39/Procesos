@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer'); // npm install nodemailer
 const url="http://localhost:3000/";
-const url2="https://arqbase-gh-co5nc3waja-ew.a.run.app/google/callback";
+const url2="https://arqbase-gh-co5nc3waja-ew.a.run.app";
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
