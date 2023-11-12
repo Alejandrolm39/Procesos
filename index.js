@@ -59,6 +59,13 @@ app.get('/google/callback',
         res.redirect('/good');
 });
 
+app.post('/oneTap/callback',
+    passport.authenticate('google-one-tap', { failureRedirect: '/fallo' }),
+    function(req, res) {
+        console.log("aAHHHHHhhhhhhhhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        res.redirect('/good');
+}); 
+
 app.get('/github/callback',
     passport.authenticate('github', { failureRedirect: '/fallo' }),
     function(req, res) {

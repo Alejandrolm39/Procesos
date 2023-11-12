@@ -23,16 +23,22 @@
         </a>
        
         <!-- Links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="cw.mostrarLogin()">Iniciar sesión</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="cw.mostrarRegistro()">Registrar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick=cw.salir()>Salir</a>
-            </li>
+        <ul class="navbar-nav w-100">
+            <div class="d-flex justify-content-start">
+                <li id="NavBarLogin" class="nav-item">
+                    <a class="nav-link" href="#" onclick="cw.mostrarLogin()">Iniciar sesión</a>
+                </li>
+                <li id="NavBarRegister" class="nav-item">
+                    <a class="nav-link" href="#" onclick="cw.mostrarRegistro()">Registrar</a>
+                </li>
+            </div>
+            <div class="d-flex justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick=cw.salir()>
+                        <img src = "./cliente/img/cerrar-sesion.png" width="30" height="30"></img>
+                    </a>
+                </li>
+            </div>
         </ul>
     </nav>
     <div class="container-fluid">
@@ -49,6 +55,12 @@
         <div id = "registro"> </div>
         <div id = "login"> </div>
     </div>
+    <div
+        id="g_id_onload"
+        data-Client_id="562859105000-j1ej97neoqcqomu2a0iltcf203majt7j.apps.googleusercontent.com"
+        data-login_url="http://localhost:3000/oneTap/callback"
+        data-nick_prompt_cookie="nick"
+    ></div>
     <script>
         function ini(){
             cw=new ControlWeb();

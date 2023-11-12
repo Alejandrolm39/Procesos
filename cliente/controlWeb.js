@@ -120,14 +120,15 @@ function ControlWeb(){
         }
         else{
           // cw.mostrarLogin();
-          cw.init();
+          // cw.init();
         }
     }      
 
     this.init=function(){
         let cw=this;
         google.accounts.id.initialize({ 
-            client_id:"562859105000-98usk2tt5531rnb2v9nt17uuoasjd011.apps.googleusercontent.com", //prod
+            // client_id:"562859105000-j1ej97neoqcqomu2a0iltcf203majt7j.apps.googleusercontent.com", //prod
+            client_id:"562859105000-98usk2tt5531rnb2v9nt17uuoasjd011.apps.googleusercontent.com", //dev
             auto_select:false,
             callback:cw.handleCredentialsResponse
         });
@@ -168,7 +169,8 @@ function ControlWeb(){
         $("#fmRegistro").remove();
         $("#fmLogin").remove();
         $("#registro").load("./cliente/registro.html",function(){
-            $("#btnRegistro").on("click",function(){
+            $("#btnRegistro").on("click",function(event){
+                event.preventDefault();
                 let email=$("#email").val();
                 let pwd=$("#pwd").val();
                 if (email && pwd){
@@ -180,6 +182,7 @@ function ControlWeb(){
     }
 
     this.mostrarLogin = function () {
+        // let flag = false;
         if ($.cookie("nick")) {
           return true;
         }
@@ -187,12 +190,18 @@ function ControlWeb(){
         $("#fmLogin").remove();
         $("#fmRegistro").remove();
         $("#login").load("./cliente/login.html", function () {
-          $("#btnLogin").on("click", function () {
+          $("#btnLogin").on("click", function (event) {
+            event.preventDefault();
             let email = $("#email").val();
             let pwd = $("#pwd").val();
             if (email && pwd) {
-              rest.loginUsuario(email, pwd);
-              console.log(email + " " + pwd);
+                rest.loginUsuario(email, pwd);
+                console.log(email + " " + pwd);
+                // flag = true;
+                // if (flag) {
+                //   $("#NavBarLogin").hide();
+                //   $("#NavBarRegister").hide();
+                // }
             }
           });
         });

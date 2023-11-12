@@ -150,19 +150,19 @@ function ClienteRest(){
           success: function (data) {
             if (data.nick != -1) {
                 // console.log(data);
-              console.log("Usuario " + data.nick + " ha sido loggeado");
-              $.cookie("nick", data.nick);
-              cw.limpiar();
-              cw.mostrarMsg("Bienvenid@ al sistema, " + data.nick);
-            //   cw.limpiar();
-              cw.mostrarAgregarUsuario();  
-              cw.obtenerUsuarios();
-              cw.numeroUsuarios();
-              cw.usuarioActivo();
-              cw.eliminarUsuario();
-            } else {
-              console.log("No se puede iniciar sesión");
-              cw.mostrarMsgError("No se puede iniciar sesión");
+                console.log("Usuario " + data.nick + " ha sido loggeado");
+                $.cookie("nick", data.nick);
+                cw.limpiar();
+                cw.mostrarMsg("Bienvenid@ al sistema, " + data.nick);
+                //   cw.limpiar();
+                cw.mostrarAgregarUsuario();  
+                cw.obtenerUsuarios();
+                cw.numeroUsuarios();
+                cw.usuarioActivo();
+                cw.eliminarUsuario();
+                } else {
+                console.log("No se puede iniciar sesión");
+                cw.mostrarMsgError("No se puede iniciar sesión");
             //   cw.limpiar();
             }
           },
