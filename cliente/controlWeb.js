@@ -160,7 +160,7 @@ function ControlWeb(){
         $("#fmRegistro").remove();
     }
 
-    this.mostrarRegistro=function(){
+    this.mostrarRegistro=function(event){
         if ($.cookie("nick")) {
             return true;
         }
@@ -168,7 +168,8 @@ function ControlWeb(){
         $("#fmRegistro").remove();
         $("#fmLogin").remove();
         $("#registro").load("./cliente/registro.html",function(){
-            $("#btnRegistro").on("click",function(){
+            $("#btnRegistro").on("click",function(event){
+                event.preventDefault();
                 let email=$("#email").val();
                 let pwd=$("#pwd").val();
                 if (email && pwd){
@@ -187,7 +188,8 @@ function ControlWeb(){
         $("#fmLogin").remove();
         $("#fmRegistro").remove();
         $("#login").load("./cliente/login.html", function () {
-          $("#btnLogin").on("click", function () {
+          $("#btnLogin").on("click", function (event) {
+            event.preventDefault();
             let email = $("#email").val();
             let pwd = $("#pwd").val();
             if (email && pwd) {
