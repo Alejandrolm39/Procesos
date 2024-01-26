@@ -1,0 +1,116 @@
+.login {
+    background: #ffffff2e;
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+    padding: 30px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: -50px;
+    position: relative;
+    z-index: 1;
+}
+
+.letras {
+    color: #F9FAFB;
+}
+
+.inputBox {
+    position: relative;
+    margin: 30px0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+}
+
+.inputBox label{
+    position:absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+
+}
+
+input:focus  label,
+input:focus :valid{
+
+}
+
+.inputBox input{
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #fff;
+}
+
+.botonInicioSesión{
+    background-color: #1b2a49;
+    border: 0px;
+}
+
+.registraseboton {
+    color: #441f31;
+}
+
+#fmErrorModal {
+    background: #121d31;
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; 
+    margin-top: -350px;
+}
+
+#fmErrorModal .close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px; 
+    right: 10px; 
+}
+
+#fmErrorModal .close-button ion-icon {
+    font-size: 24px;
+    color: #333; 
+}
+
+#fmErrorModal h3 {
+    color: #F9FAFB; 
+    font-size: 18px; 
+    margin-bottom: 10px; 
+}
+
+#fmErrorModal #MsgModal {
+    color: #F9FAFB; 
+    font-size: 16px;
+}
+
+.error-title {
+    color: red;
+    text-align: center;
+    margin-top: 0px; 
+    font-size: 24px; 
+}
+
+.menuPrincipalBoton{
+    background-color: #1b2a49;
+    border: 0px;
+    margin-top: 20px;
+}
+.or{
+    margin-top: 15px;
+    color: #F9FAFB;
+}
+
+.inputButton{
+    margin-top: 10px;
+}
