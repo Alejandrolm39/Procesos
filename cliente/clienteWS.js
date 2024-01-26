@@ -67,13 +67,15 @@ function ClienteWS(){
         if (!cw.gameActive) {
             return;
         }
-        data = JSON.parse(data);
+        // data = JSON.parse(data);
         cw.gameActive = false;
 
         if (data.winner === cw.playerNumber) {
             alert('You Win!');
+            console.log("you win");
         } else {
             alert('You Lose :(');
+            console.log("you lose");
         }
     });
 

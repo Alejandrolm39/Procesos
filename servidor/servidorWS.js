@@ -122,13 +122,17 @@ function WSServer(io, sistema){
         // io.sockets.in(room)
         //     .emit('gameState', JSON.stringify(gameState));
         // console.log("game state en emit: " + gameState);
+        socket.to(room).emit('gameState', gameState);
         socket.emit('gameState', gameState);
     }
     
     this.emitGameOver = function(socket, room, winner) {
         // io.sockets.in(room) //obtener todos los sockects en la sala especificada
         //     .emit('gameOver', JSON.stringify({ winner })); //emite el evento gameOver con el resultado del juego serializado
-        socket.emit('gameOver', winner);
+        
+        console.log({winner});
+        socket.to(room).emit('gameOver', {winner});
+        socket.emit('gameOver', {winner});
     }
 };
 
