@@ -1,9 +1,6 @@
 function ClienteWS(){
     this.socket=undefined;
     this.email=undefined;
-    this.code=undefined;
-    // this.playerNumber = undefined;
-    // this.gameActive = false;
 
     // Functions for initialize the sockets
     this.ini=function() {

@@ -75,18 +75,6 @@ app.get('/github/callback',
 
 let sistema = new modelo.Sistema(test);
 
-// app.get("/good", function(request,response){
-//     // let nick = request.user.emails[0].value;
-//     // if(nick){
-//     //     sistema.agregarUsuario(nick);
-//     // }
-//     let email=request.user.emails[0].value;
-//     sistema.usuarioGoogle({email:email}, function(usr){
-//         response.cookie("nick",usr.email);
-//         response.redirect('/');
-//     });
-// });
-
 app.get("/good", function (req, res) {
     switch (req.user.provider) {
       case "google":
@@ -127,9 +115,9 @@ app.get("/", function(request,response){
     response.send(contenido);
 });
 
-// app.get("/agregarUsuario/:nick",haIniciado,function(request,response){
-//     let nick=request.params.nick;
-//     let res=sistema.agregarUsuario(nick);
+// app.get("/agregarUsuario/:email",haIniciado,function(request,response){
+//     let email=request.params.email;
+//     let res=sistema.agregarUsuario(email);
 //     response.send(res);
 // });
 
