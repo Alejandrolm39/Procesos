@@ -12,7 +12,7 @@ function WSServer(){
             console.log("Capa WS activa");
 
             socket.on("crearPartida",function(datos){
-                console.log("hola hola vecinito");
+                console.log({datos, event: "crear partida"});
                 // let {codigo} = sistema.crearPartida(datos.email);
                 let {codigo} = sistema.crearPartida(datos.email);
                 console.log({codigo});

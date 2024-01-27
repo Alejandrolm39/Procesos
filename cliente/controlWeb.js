@@ -124,6 +124,7 @@ function ControlWeb(){
 
     this.comprobarSesion=function(){
         let email= $.cookie("email")
+        console.log({email, event: "comprobar sesion"});
         // localStorage.getItem("email");
         if (email){
           if (!rest.usuarioActivo(email)){

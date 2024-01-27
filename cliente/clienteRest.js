@@ -4,7 +4,7 @@ function ClienteRest(){
         $.getJSON("/agregarUsuario/"+email,function(data){
             if (data.email!=-1){
                 console.log("Usuario "+email+" ha sido registrado")
-                msg="Usuario " + email + " ha sido registrado";
+                // msg="Usuario " + email + " ha sido registrado";
                 // localStorage.setItem("nick",nick);
                 $.cookie("email", email);
             }

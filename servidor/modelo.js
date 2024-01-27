@@ -13,6 +13,7 @@ function Sistema(test){
     this.agregarUsuario=function(usr, callback){
         let res={"email":-1};
         const {email} = usr;
+        console.log({email, event: "agregar usuario"});
         if (!this.usuarios[email]){
           this.usuarios[email]=new Usuario(email);
           console.log({email});
@@ -42,8 +43,9 @@ function Sistema(test){
             console.log("El usuario " + usr.email + " ya estaba registrado");
             obj.email = copia;
           }
-          sistema.agregarUsuario(usr, callback);
-          callback(obj);
+          // console.log({obj});
+          sistema.agregarUsuario(obj, callback);
+          // callback(obj);
         });
       };
 
@@ -164,6 +166,7 @@ function Sistema(test){
     this.crearPartida=function(email){
         let res={codigo:-1};
         console.log(email);
+        console.log({usuarios: this.usuarios});
         if (this.usuarios[email]){
           console.log(this.usuarios[email]);
           creator=this.usuarios[email].email;
