@@ -124,7 +124,7 @@ function ClienteWS(){
         if(this.canvasElement){
             cw.ctx = this.canvasElement.getContext('2d');
 
-            this.canvasElement.width = this.canvasElement.height = 600;
+            this.canvasElement.width = this.canvasElement.height = 350;
 
             cw.ctx.fillStyle = cw.BG_COLOUR;
             cw.ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
