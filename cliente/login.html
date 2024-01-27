@@ -8,9 +8,8 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>Iniciar Sesión</title>
 </head>
-<body>
-
-<div class="container mt-5">
+<body class="body">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div id="fmLogin" class="card login">
@@ -18,12 +17,12 @@
                 <form>
                     <div class="form-group">
                         <ion-icon name="mail-outline" class="letras"></ion-icon>
-                        <label for="email" class="letras">Correo Electrónico:</label>
+                        <label for="email" class="letras col-sm-6">Correo Electrónico:</label>
                         <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico" required>
                     </div>
                     <div class="form-group inputbox">
                         <ion-icon name="lock-closed-outline" class="letras"></ion-icon>
-                        <label for="pwd" class="letras ">Contraseña:</label>
+                        <label for="pwd" class="letras col-sm-5">Contraseña:</label>
                         <input type="password" class="form-control" id="pwd" placeholder="Ingresa tu contraseña" required>
                         <!-- <div class="input-group-append">
                             <span class="input-group-text nav-link" href="#" id="eye-icon" onclick="cw.passwordVisibility()">

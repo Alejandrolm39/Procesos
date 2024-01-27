@@ -129,7 +129,7 @@ function Sistema(test){
                         callback({ email: -1, err: "Error al comparar contraseñas"});
                       } else if (result) {
                         modelo.agregarUsuario(usr, callback);
-                        // callback(usr); // Contraseña válidas
+                        // callback(usr); // Contraseña válidass
                         // modelo.agregarUsuario(usr);
                       } else {
                         callback({ email: -1, err: "Usuario o contraseña incorrecta"}); // Contraseña incorrecta

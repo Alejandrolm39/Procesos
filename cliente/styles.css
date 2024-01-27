@@ -16,7 +16,19 @@
     padding: 30px;
     max-width: 400px;
     margin: auto;
-    margin-top: -50px;
+    margin-top: 0px;
+    position: relative;
+    z-index: 1;
+}
+
+.registro {
+    background: #ffffff2e;
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: -15px;
     position: relative;
     z-index: 1;
 }

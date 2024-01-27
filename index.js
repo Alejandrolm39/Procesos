@@ -115,11 +115,10 @@ app.get("/", function(request,response){
     response.send(contenido);
 });
 
-// app.get("/agregarUsuario/:email",haIniciado,function(request,response){
-//     let email=request.params.email;
-//     let res=sistema.agregarUsuario(email);
-//     response.send(res);
-// });
+app.get("/agregarUsuario/:email",haIniciado,function(request,response){
+    let email=request.params.email;
+    sistema.agregarUsuario(email, (usr) => {response.send(usr);});
+});
 
 app.get("/obtenerUsuarios",haIniciado,function(request, response){
     let res=sistema.obtenerUsuarios();

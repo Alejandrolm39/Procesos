@@ -5,7 +5,7 @@ const { FRAME_RATE } = require('./constants.js');
 const state = {};
 const clientRooms = {};
 
-function WSServer(io, sistema){
+function WSServer(){
     let servidor = this;
     this.lanzarServer=function(io,sistema){
         io.on('connection',function(socket){
