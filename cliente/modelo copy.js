@@ -1,24 +1,18 @@
-const e = require("express");
-const datos = require("./cad.js");
-const correo=require("./email.js");
-const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require('uuid');
+// const datos = require("./cad.js");
+// const correo=require("./email.js");
+// const bcrypt = require("bcrypt");
 
 function Sistema(test){
     this.usuarios={}; //this.usuarios=[]
-    this.partidas={};
     this.test=test;
-    this.cad= new datos.CAD();
+    // this.cad= new datos.CAD();
 
-    this.agregarUsuario=function(usr, callback){
+    this.agregarUsuario=function(email){
         let res={"email":-1};
-        const {email} = usr;
         if (!this.usuarios[email]){
-          this.usuarios[email]=new Usuario(email);
-          console.log({email});
-          console.log("el email "+email+" ha sido registrado");
-          res.email=email;
-          callback(usr);
+        this.usuarios[email]=new Usuario(email);
+        console.log("el email "+email+" ha sido registrado");
+        res.email=email;
         }
         else{
         console.log("el email "+email+" está en uso");
@@ -34,6 +28,7 @@ function Sistema(test){
     // }
 
     this.usuarioOAuth = function (usr, callback) {
+        let modelo=this;
         let copia = usr;
         usr.confirmada = true;
         this.cad.buscarOCrearUsuario(usr, function (obj) {
@@ -42,6 +37,7 @@ function Sistema(test){
             obj.email = copia;
           }
           callback(obj);
+          modelo.agregarUsuario(obj);
         });
       };
 
@@ -128,9 +124,8 @@ function Sistema(test){
                         console.error("Error al comparar contraseñas:", err);
                         callback({ email: -1, err: "Error al comparar contraseñas"});
                       } else if (result) {
-                        modelo.agregarUsuario(usr, callback);
-                        // callback(usr); // Contraseña válidas
-                        // modelo.agregarUsuario(usr);
+                        callback(usr); // Contraseña válidas
+                        modelo.agregarUsuario(usr);
                       } else {
                         callback({ email: -1, err: "Usuario o contraseña incorrecta"}); // Contraseña incorrecta
                         console.error({ email: -1, err: "Usuario o contraseña incorrecta"});
@@ -148,95 +143,24 @@ function Sistema(test){
         });
     }
 
-
-
     if (!this.test){
         this.cad.conectar(function(){
             console.log("Conectando a Mongo Atlas");
         })
-        correo.conectar(function(valor){
-            console.log("Credenciales obtenidas");
-        })
     }
-
-    this.crearPartida=function(email){
-        let res={codigo:-1};
-        console.log(email);
-        if (this.usuarios[email]){
-          console.log(this.usuarios[email]);
-          creator=this.usuarios[email].email;
-          if (creator){
-            codigo = this.obtenerCodigo();
-            newPartida=new Partida(codigo);
-            newPartida.jugadores.push(creator);
-            this.partidas[codigo]=newPartida;
-            res.codigo=newPartida.codigo;
-          }
-        }
-        return res;
-        // return 1;
-      }
-    
-      // Gestion de partidas
-      this.obtenerCodigo=function(){
-        code = uuidv4().toString().substr(0, 6);
-        return code;
-      }
-      this.unirAPartida=function(email,codigo){
-        console.log("codigo fn fn unir partida: " + codigo);
-        let res={codigo:-1, email:email};
-        let partida=this.partidas[codigo];
-        if (partida){
-          if (partida.jugadores.length<partida.maxJug){
-            partida.jugadores.push(email);
-            console.log(partida.jugadores);
-            console.log("El usuario con email "+email+" se ha unido a la partida con codigo "+codigo);
-            res.codigo=partida.codigo;
-          }
-        }
-        // res.codigo = 1;
-        return res;
-      }
-    
-      this.obtenerPartidasDisponibles = function(){
-        let lista=[];
-        for (var key in this.partidas){
-          let partida=this.partidas[key];
-          let creador = partida.jugadores[0];
-          if (partida.jugadores.length<partida.maxJug){
-            lista.push({codigo:partida.codigo, email:creador.email});
-          }
-        }
-        return lista;
-      }
-  
-      this.eliminarPartida=function(codigo){
-        let res={"partida_eliminada":-1};
-        if (this.partidas[codigo]){
-            delete(this.partidas[codigo]);
-            console.log("Se ha eliminado la partida con codigo " + codigo);
-            res.partida_eliminada = codigo;
-        }
-        else {
-            console.log("No existe una partida con codigo " + codigo);
-        }
-        return res;
-      }
 }
 
-function Usuario(email){
-    this.email=email;
-    this.nick;
-    this.partidasGanadas=0;
-    this.partidasPerdidas=0;
+function Usuario(usr){
+    this.nick=nick;
+    this.email=usr.email;
+    this.clave;
 }
 
 function Partida(codigo){
     this.codigo = codigo;
     this.jugadores = [];
     this.maxJug = 2;
-    this.partidaAcabada=false;
 }
 
-module.exports.Sistema=Sistema
+// module.exports.Sistema=Sistema
    

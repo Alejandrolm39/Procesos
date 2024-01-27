@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./cliente/styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>Iniciar Sesión</title>
 </head>
 <body>
@@ -11,27 +13,40 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div id="fmLogin" class="card p-4">
-                <h2 class="text-center">Iniciar Sesión</h2>
+            <div id="fmLogin" class="card login">
+                <h2 class="text-center letras">Iniciar Sesión</h2>
                 <form>
                     <div class="form-group">
-                        <label for="email">Correo Electrónico:</label>
+                        <ion-icon name="mail-outline" class="letras"></ion-icon>
+                        <label for="email" class="letras">Correo Electrónico:</label>
                         <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico" required>
                     </div>
-                    <div class="form-group">
-                        <label for="pwd">Contraseña:</label>
+                    <div class="form-group inputbox">
+                        <ion-icon name="lock-closed-outline" class="letras"></ion-icon>
+                        <label for="pwd" class="letras ">Contraseña:</label>
                         <input type="password" class="form-control" id="pwd" placeholder="Ingresa tu contraseña" required>
+                        <!-- <div class="input-group-append">
+                            <span class="input-group-text nav-link" href="#" id="eye-icon" onclick="cw.passwordVisibility()">
+                                <ion-icon name="eye" id="eye"></ion-icon>
+                            </span>
+                        </div> -->
                     </div>
-                    <button type="submit" id="btnLogin" class="btn btn-primary btn-block">Iniciar Sesión</button>
-                    <div id="msgE" class="mt-3 text-center text-danger"></div>
-                    <div class="mt-3 text-center">
+                    <button type="submit" id="btnLogin" class="btn btn-primary btn-block border-0 botonInicioSesión">Iniciar Sesión</button>
+
+                    <div class="register" style="margin-top: 10px;">
+                        <p style="display: inline; margin-right: -5px;" class="letras">¿No tienes una cuenta?</p>
+                        <a class="nav-link registraseboton" href="#" onclick="cw.mostrarRegistro()" style="display: inline; margin-left: -10px;">Regístrate aquí</a>
+                    </div>
+
+                    <!-- <div id="msgE" class="mt-3 text-center text-danger"></div> -->
+                    <div class="mt-3 text-center" style="margin-top: 5px;">
                         <a href="/auth/google">
-                            <img src="./cliente/img/btn_google_signin_light_focus_web.png" style="height: 40px;" alt="Iniciar sesión con Google">
+                            <img src="./cliente/img/btn_google_signin_light_focus_web.png" style="height: 35px; width: 165px;" alt="Iniciar sesión con Google">
                         </a>
                     </div>
                     <div class="mt-3 text-center">
                         <a href="/auth/github">
-                            <img src="./cliente/img/632cc59b0ce5f831d6ce0c8c_Screen Shot 2022-09-22 at 4.13.26 PM.jpg" style="height: 40px; width: 165px;" alt="Iniciar sesión con GitHub">
+                            <img src="./cliente/img/632cc59b0ce5f831d6ce0c8c_Screen Shot 2022-09-22 at 4.13.26 PM.jpg" style="height: 35px; width: 165px;" alt="Iniciar sesión con GitHub">
                         </a>
                     </div>
                 </form>

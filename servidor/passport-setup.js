@@ -1,6 +1,7 @@
 const passport=require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
+const GoogleOneTapStrategy = require('passport-google-one-tap').GoogleOneTapStrategy;
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -11,8 +12,8 @@ passport.deserializeUser(function(user, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: "562859105000-vnifb8vniqvuto9gt84sfmo9g58nno8q.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: "562859105000-aida40ck4gkpjcscjqk6ft62usrjfa9d.apps.googleusercontent.com",
+    clientSecret: "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",
     callbackURL: "https://arqbase-gh-co5nc3waja-ew.a.run.app/google/callback"
     },
 
@@ -28,6 +29,17 @@ passport.use(new GitHubStrategy({
     },
 
     function(accessToken, refreshToken, profile, done) {
+        return done(null, profile);
+    }
+));
+
+passport.use(new GoogleOneTapStrategy({
+    clientID: "562859105000-aida40ck4gkpjcscjqk6ft62usrjfa9d.apps.googleusercontent.com",
+    clientSecret: "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",
+    verifyCsrfToken:false
+    },
+
+    function(profile, done) {
         return done(null, profile);
     }
 ));

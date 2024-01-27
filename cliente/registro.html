@@ -33,27 +33,31 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div id="fmRegistro" class="card p-4">
-                <h2 class="text-center">Registro</h2>
+            <div id="fmRegistro" class="card p-4 login">
+                <h2 class="text-center letras">Registro</h2>
                 <form>
                     <div class="form-group">
-                        <label for="nombre">Nombre:</label>
+                        <ion-icon name="document-outline" class="letras"></ion-icon>
+                        <label for="nombre" class="letras">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="apellidos">Apellidos:</label>
+                        <ion-icon name="document-text-outline" class="letras"></ion-icon>
+                        <label for="apellidos" class="letras">Apellidos:</label>
                         <input type="text" class="form-control" id="apellidos" placeholder="Ingresa tus apellidos" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email address:</label>
+                        <ion-icon name="mail-outline" class="letras"></ion-icon>
+                        <label for="email" class="letras">Email address:</label>
                         <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico" required>
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Contraseña:</label>
+                        <ion-icon name="lock-closed-outline" class="letras"></ion-icon>
+                        <label for="pwd" class="letras">Contraseña:</label>
                         <input type="password" class="form-control" id="pwd" placeholder="Ingresa tu contraseña" required>
                     </div>
                     <div id = "msgE" style="margin-top: 20px; margin-bottom: 20px; color: red;"> </div>
-                    <button type="submit" id="btnRegistro" class="btn btn-primary btn-block">Registrar</button>
+                    <button type="submit" id="btnRegistro" class="btn btn-primary btn-block botonInicioSesión">Registrar</button>
                 </form>
             </div>
         </div>  
