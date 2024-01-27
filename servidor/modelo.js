@@ -36,11 +36,13 @@ function Sistema(test){
     this.usuarioOAuth = function (usr, callback) {
         let copia = usr;
         usr.confirmada = true;
+        const sistema = this;
         this.cad.buscarOCrearUsuario(usr, function (obj) {
           if (obj.email == null) {
             console.log("El usuario " + usr.email + " ya estaba registrado");
             obj.email = copia;
           }
+          sistema.agregarUsuario(obj, callback);
           callback(obj);
         });
       };

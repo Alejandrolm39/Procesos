@@ -126,13 +126,6 @@ function ControlWeb(){
         let email= $.cookie("email")
         // localStorage.getItem("email");
         if (email){
-          // $("#BienvenidoText").hide();
-            // cw.mostrarMsg("Bienvenido al sistema, "+email);
-            // cw.mostrarAgregarUsuario(); 
-            // cw.obtenerUsuarios();
-            // cw.numeroUsuarios();
-            // cw.usuarioActivo();
-            // cw.eliminarUsuario();
           if (!rest.usuarioActivo(email)){
             rest.agregarUsuario(email);
           }

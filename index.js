@@ -83,7 +83,7 @@ app.get("/good", function (req, res) {
           res.cookie("email", obj.email);
           res.redirect("/");
         });
-        sistema.agregarUsuario(email, (usr) => {response.send(usr);});
+        // sistema.agregarUsuario(email, (usr) => {response.send(usr);});
         break;
       case "github":
         console.log(req.user);
@@ -119,6 +119,8 @@ app.get("/", function(request,response){
 app.get("/agregarUsuario/:email",haIniciado,function(request,response){
     let email=request.params.email;
     sistema.agregarUsuario(email, (usr) => {response.send(usr);});
+    // let res=sistema.agregarUsuario(email);
+    // response.send(res);
 });
 
 app.get("/obtenerUsuarios",haIniciado,function(request, response){
