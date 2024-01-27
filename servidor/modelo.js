@@ -42,7 +42,7 @@ function Sistema(test){
             console.log("El usuario " + usr.email + " ya estaba registrado");
             obj.email = copia;
           }
-          sistema.agregarUsuario(obj, callback);
+          sistema.agregarUsuario(usr, callback);
           callback(obj);
         });
       };
