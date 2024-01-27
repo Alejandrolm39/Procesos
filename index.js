@@ -44,12 +44,7 @@ passport.use(new
     LocalStrategy({usernameField:"email",passwordField:"password"},
     function(email,password,done){
         sistema.loginUsuario({"email":email,"password":password},function(user){
-            // if(user.email!=-1){
                 return done(null,user);
-            // }
-            // else{
-            //     return done(-1);
-            // }
         })
     }
 ));
