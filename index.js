@@ -83,6 +83,7 @@ app.get("/good", function (req, res) {
           res.cookie("email", obj.email);
           res.redirect("/");
         });
+        sistema.agregarUsuario(email, (usr) => {response.send(usr);});
         break;
       case "github":
         console.log(req.user);
