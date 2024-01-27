@@ -16,7 +16,7 @@
  <script src="./cliente/controlWeb.js"></script>
  <script src="./cliente/clienteWS.js"></script>
 </head>
-<body onload="ini();" style="background-image: url('./cliente/img/background6.png'); background-size: cover;">
+<body onload="ini();" style="background-image: url('./cliente/img/background6.png'); background-size: cover; background-repeat: no-repeat;">
     <nav class="navbar navbar-expand-sm" style="background-color: #271b29;">
         <!-- Brand/logo -->
         <a class="navbar-brand" href="#" onclick="cw.home()">
@@ -37,6 +37,9 @@
             <!-- <li id="NavBarRegister" class="nav-item">
                 <a class="nav-link" href="#" onclick="cw.vistaError()" style="background-color: #616161; color: #00E5FF; font-size: 1.2em; margin-right: 12px;">Menu</a>
             </li> -->
+            <li id="NavBarMainMenu" class="nav-item d-none">
+                <a class="nav-link" href="#" onclick="cw.mostrarMainMenu()" style="background-color: #271b29; color: #F9FAFB; font-size: 1.2em; margin-right: 12px;">Menu Principal</a>
+            </li>
             <li id="NavBarExit" class="nav-item d-none">    
                 <a class="nav-link" href="#" onclick="cw.salir()">
                     <img src="./cliente/img/cerrar-sesion.png" width="30" height="30"></img>
@@ -56,10 +59,10 @@
         <div id = "eu"> </div> -->
         <div id = "registro"> </div>
         <div id = "login"> </div>
-        <div id = "mainMenu"> </div>
-        <div id = "errorModalMsg"> </div>
+        <div id = "menu"> </div>
+        <div id = "modalMsg"> </div>
         <div id ="gameScreen"></div>
-        <div id ="joinModal"></div>
+        <!-- <div id ="joinModal"></div> -->
     </div>
     <div
         id="g_id_onload"

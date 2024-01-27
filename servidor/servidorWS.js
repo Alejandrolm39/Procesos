@@ -43,6 +43,36 @@ function WSServer(io, sistema){
                 socket.emit('partidaCreada');
             });
 
+            socket.on("crearPartida1Jugador",function(datos){
+                let {codigo} = sistema.crearPartida(datos.email);
+                console.log({codigo});
+                if (codigo !=-1){
+                    socket.join(codigo);
+                }
+                // srv.enviarAlRemitente(socket,"partidaCreada",{"codigo":codigo, color:'white'});
+                // let lista = sistema.obtenerPartidasDisponibles();
+                // srv.enviarATodos(socket,"listaPartidas",lista);
+
+                const roomName = codigo;
+                clientRooms[socket.id] = roomName;
+                // console.log("hola gamecode1");
+                // console.log(roomName);
+                // console.log("roomanem error");
+                servidor.enviarAlRemitente(socket, "gameCode", roomName);
+                // socket.emit('gameCode', roomName);
+                // console.log("Se lo salta");
+                state[roomName] = initGame();
+                // console.log("la roomname es;" + roomName);
+                // console.log("la state roomname es: " + state[roomName]);
+                socket.number = 1;
+                servidor.enviarAlRemitente(socket, "init", 1);  
+                // socket.emit('init', 1);
+
+                // servidor.startGameInterval(socket, roomName);
+                // socket.emit('partidaCreada1Jugador');
+                servidor.startGameInterval(socket, roomName, false);
+            });
+
             socket.on("unirAPartida",function(datos){
                 console.log({datos});
                 let codigo = datos.codigo;
@@ -64,12 +94,12 @@ function WSServer(io, sistema){
                 socket.number=2;
                 socket.emit('init', 2);
                 // console.log("por qué se hace esto");
-                servidor.startGameInterval(socket, roomName);
+                servidor.startGameInterval(socket, roomName, true);
             });
 
             socket.on('keydown', function (keyCode) {
                 const roomName = clientRooms[socket.id];
-                if (!roomName) {
+                if (!roomName || !state[roomName] || !state[roomName].players) {
                     return;
                 }
                 try {
@@ -78,11 +108,12 @@ function WSServer(io, sistema){
                     console.error(e);
                     return;
                 }
+                if (state[roomName].players[socket.number - 1]){
+                    const vel = getUpdatedVelocity(keyCode);
 
-                const vel = getUpdatedVelocity(keyCode);
-
-                if (vel) {
-                    state[roomName].players[socket.number - 1].vel = vel;
+                    if (vel) {
+                        state[roomName].players[socket.number - 1].vel = vel;
+                    }
                 }
             });
         });
@@ -101,38 +132,44 @@ function WSServer(io, sistema){
     //     io.emit(mens,datos);
     // }
 
-    this.startGameInterval = function(socket, roomName) {
+    this.startGameInterval = function(socket, roomName, flag) {
         const intervalId = setInterval(() => {
             const winner = gameLoop(state[roomName]);
-            // console.log("pero por que se hace esto");
+                // console.log("pero por que se hace esto");
             if (!winner) {
                 console.log("state roomname: " + state[roomName]);
                 console.log("room name: " + roomName);
-                this.emitGameState(socket, roomName, state[roomName])
+                this.emitGameState(socket, roomName, state[roomName], flag)
             } else {
-                this.emitGameOver(socket, roomName, winner);
+                this.emitGameOver(socket, roomName, winner, flag);
                 state[roomName] = null;
                 clearInterval(intervalId);
             }
         }, 1000 / FRAME_RATE);
     }
     
-    this.emitGameState = function(socket, room, gameState) {
-        // Enviar este evento a todos en la sala.
-        // io.sockets.in(room)
-        //     .emit('gameState', JSON.stringify(gameState));
-        // console.log("game state en emit: " + gameState);
-        socket.to(room).emit('gameState', gameState);
-        socket.emit('gameState', gameState);
+    this.emitGameState = function(socket, room, gameState, flag) {
+        if (flag){
+            socket.to(room).emit('gameState', gameState, flag);
+            socket.emit('gameState', gameState, flag);
+        }
+        else{
+            socket.emit('gameState', gameState, flag);
+        }
     }
     
-    this.emitGameOver = function(socket, room, winner) {
+    this.emitGameOver = function(socket, room, winner, flag) {
         // io.sockets.in(room) //obtener todos los sockects en la sala especificada
         //     .emit('gameOver', JSON.stringify({ winner })); //emite el evento gameOver con el resultado del juego serializado
-        
-        console.log({winner});
-        socket.to(room).emit('gameOver', {winner});
-        socket.emit('gameOver', {winner});
+        if (flag){
+            console.log({winner});
+            socket.to(room).emit('gameOver', {winner});
+            socket.emit('gameOver', {winner});
+        }
+        else {
+            console.log({winner});
+            socket.emit('gameOver', {winner});
+        }
     }
 };
 

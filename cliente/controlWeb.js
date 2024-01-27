@@ -142,6 +142,7 @@ function ControlWeb(){
           $("#NavBarLogin").hide();
           $("#NavBarRegister").hide();
           $("#NavBarExit").removeClass("d-none");
+          $("#NavBarMainMenu").removeClass("d-none");
           cw.mostrarMainMenu();
         }
         else{
@@ -181,7 +182,7 @@ function ControlWeb(){
         $("#eu").remove();
         $("#fmLogin").remove();
         $("#fmRegistro").remove();
-        $("#fmMainMenu").remove();
+        $("#fmMultiplayerMenu").remove();
     }
 
     this.mostrarRegistro=function(){
@@ -232,17 +233,53 @@ function ControlWeb(){
         });
       };
 
-      this.mostrarMainMenu = function () {
+      this.mostrarMainMenu = function(){
+        if ($.cookie("email")) {
+          // $("#BienvenidoText1").hide();
+          // $("#BienvenidoText2").hide();
+          // $("#fmLogin").remove();
+          // $("#fmRegistro").remove();
+          $('#fmGameOverModal').remove();
+          $("#BienvenidoText1").hide();
+          $("#BienvenidoText2").hide();
+          $("#fmMultiplayerMenu").remove();
+          $("#fmJoinGame").remove();
+          $("#fmGameScreen").remove();
+          $("#menu").load("./cliente/mainMenu.html", function () {
+            $("#btnTraditionalSnake").on("click", function () {
+              // self.canvas = $('#canvas');
+              $("#fmMultiplayerMenu").remove();
+              $("#fmMainMenu").remove();
+              $("#gameScreen").load("./cliente/gameScreen.html", function () {
+                $("#gameCodeText1").hide();
+                // self.canvas = document.getElementById('canvas');
+                // self.canvas = $("#canvas")[0];
+                // Inicializar el cliente WS para el juego
+                ws.crearPartida1Jugador();
+                // Puedes agregar más lógica según sea necesario
+              });
+            });
+            $("#btnMultiplayerSnake").on("click", () => {
+              cw.mostrarMultiplayerMenu();
+            });
+          });
+        }
+      }
+
+      this.mostrarMultiplayerMenu = function () {
         // let flag = false;
         if ($.cookie("email")) {
           // $("#BienvenidoText1").hide();
           // $("#BienvenidoText2").hide();
           // $("#fmLogin").remove();
           // $("#fmRegistro").remove();
-          $("#mainMenu").load("./cliente/mainMenu.html", function () {
+          $("#fmMainMenu").remove();
+          $("#fmJoinGame").remove();
+          $("#fmGameScreen").remove();
+          $("#menu").load("./cliente/multiplayerMainMenu.html", function () {
             $("#btnNewGame").on("click", function () {
               // self.canvas = $('#canvas');
-              $("#fmMainMenu").remove();
+              $("#fmMultiplayerMenu").remove();
               $("#gameScreen").load("./cliente/gameScreen.html", function () {
                 $("#gameCodeText1").show();
                 // Aquí puedes realizar acciones específicas después de cargar el contenido del juego
@@ -262,7 +299,16 @@ function ControlWeb(){
 
       this.home = function (){
         if (($.cookie("email"))) {
-          return true;
+          // $("#NavBarLogin").show();
+          // $("#NavBarRegister").show();
+          $("#BienvenidoText1").show();
+          $("#BienvenidoText2").show();
+          $("#fmLogin").remove();
+          $("#fmRegistro").remove();
+          $("#fmMainMenu").remove();
+          $("#fmJoinGame").remove();
+          $("#fmMultiplayerMenu").remove();
+          $("#fmGameScreen").remove();
         }
         else {
           $("#NavBarLogin").show();
@@ -281,22 +327,43 @@ function ControlWeb(){
         else if (this.page == "login"){
           
           this.mostrarLogin();
+        } else if (this.page == "joinModal"){
+          this.mostrarJoinGameModal();
         }
         $("#fmErrorModal").remove();
       }
 
       this.vistaError = function(msg, page){
         this.page=page
-        console.log("hola 1");
-        $("#errorModalMsg").load("./cliente/errorModal.html", function () {
-          let cadena = '<h6 id="mMsgError">' + msg + '<h6>';
-          $('#MsgModal').append(cadena);
+        // $("#fmLogin").hide();
+        if (page == "login" || page == "registro"){
+          $("#modalMsg").load("./cliente/errorModal.html", function () {
+            let cadena = '<h6 id="mMsgError">' + msg + '<h6>';
+            $('#MsgModal').append(cadena);
+          });
+        }
+        else {
+          $("#modalMsg").load("./cliente/joinErrorModal.html", function () {
+            let cadena = '<h6 id="mMsgError">' + msg + '<h6>';
+            $('#MsgModal2').append(cadena);
+          });
+        }
+      }
+
+      this.vistaGameOver = function(msg1, msg2){
+        $("#modalMsg").load("./cliente/gameOverModal.html", function () {
+          $('#msgModalGameOver').append(msg1);
+          $('#msgModalGameOver2').append(msg2);
         });
       }
 
+      this.vistaPostGameOver = function(){
+        $('#fmGameOverModal').remove();
+      }
+
       this.mostrarJoinGameModal = function(){
-        $("#fmMainMenu").remove();
-        $("#joinModal").load("./cliente/joinGameModal.html", function () {
+        $("#fmMultiplayerMenu").remove();
+        $("#modalMsg").load("./cliente/joinGameModal.html", function () {
           $("#btnJoinGame2").on("click", function () {
             let code = $("#gameCodeInput").val();
             if (code) {
@@ -307,7 +374,8 @@ function ControlWeb(){
               });  
             }
             else{
-              cw.vistaError("Ingrese un código de partida", "");
+              // $("#fmJoinGame").remove();
+              cw.vistaError("Ingrese un código de partida", "joinModal");
               console.log("Fucking panza");
             }
           });
@@ -320,7 +388,7 @@ function ControlWeb(){
         // console.log(playerNumber);
       }
 
-      this.paintGame = function(state) {
+      this.paintGame = function(state, flag) {
         this.ctx.fillStyle = this.BG_COLOUR;
         this.ctx.fillRect(0, 0, ws.canvasElement.width, ws.canvasElement.height);
         console.log({state});
@@ -332,9 +400,14 @@ function ControlWeb(){
       
         this.ctx.fillStyle = this.FOOD_COLOUR;
         this.ctx.fillRect(food.x * size, food.y * size, size, size);
-      
-        cw.paintPlayer(state.players[0], size, this.SNAKE_COLOUR);
-        cw.paintPlayer(state.players[1], size, 'red');
+        
+        if (flag){
+          cw.paintPlayer(state.players[0], size, this.SNAKE_COLOUR);
+          cw.paintPlayer(state.players[1], size, 'red');
+        }
+        else{
+          cw.paintPlayer(state.players[0], size, this.SNAKE_COLOUR);
+        }
       }
 
       this.paintPlayer = function(playerState, size, colour) {
@@ -396,7 +469,7 @@ function ControlWeb(){
 
       // this.mostrarJuego = function () {
       //   // Por ejemplo, asumiendo que tienes un elemento con el id 'gameContainer':
-      //   $("#fmMainMenu").remove();
+      //   $("#fmMultiplayerMenu").remove();
       //   $("#gameScreen").load("./cliente/gameScreen.html", function () {
       //       // Aquí puedes realizar acciones específicas después de cargar el contenido del juego
 

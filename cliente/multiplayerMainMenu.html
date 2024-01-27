@@ -6,25 +6,26 @@
     <link rel="stylesheet" href="./cliente/styles.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <title>Unirse a un juego</title>
+    <title>Menu Multiplayer</title>
 </head>
 <body>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div id="fmJoinGame" class="card login">
+            <div id="fmMultiplayerMenu" class="card login">
                 <div id="initialScreen" class="h-100">
                     <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                        <h1 class="letras">¡Únete y compite!</h1>
-                        <h6 class="letras" id="btnNewGame">
-                          Introduce el código de la partida: 
-                        </h6>
-                        <div class="form-group inputButton">
-                          <input type="text" placeholder="Código" id="gameCodeInput"/>
-                        </div>
-                        <button type="submit" class="btn btn-success joinGameBoton" id="btnJoinGame2">
-                          Unirse
+                        <h1 class="letras">Multiplayer Snake</h1>
+                        <button type="submit" class="btn btn-success menuPrincipalBoton" id="btnNewGame">
+                          Crear nueva partida 
+                        </button>
+                        <div class="or">OR</div>
+                        <!-- <div class="form-group">
+                          <input type="text" placeholder="Enter Game Code" id="gameCodeInput"/>
+                        </div> -->
+                        <button type="submit" class="btn btn-success joinGameBotonMenu" id="btnJoinGame">
+                          Unirse a una partida
                         </button>
                     </div>
                   </div>

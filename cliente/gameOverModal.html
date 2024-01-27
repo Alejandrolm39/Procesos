@@ -6,28 +6,28 @@
     <link rel="stylesheet" href="./cliente/styles.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <title>Error Modal</title>
+    <title>Game Over Modal</title>
 </head>
 <body>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div id="fmErrorModal" class="card p-4 fmErrorModal">
+            <div id="fmGameOverModal" class="card p-4 fmErrorModalJoin">
                     <div>
-                        <h2 class="error-title">¡Error!</h2>
-                        <h3 class="h3Modal">
-                            Parece que ha habido algún error.
+                        <h2 id ="msgModalGameOver" class="error-title"></h2>
+                        <h3 id ="msgModalGameOver2" class="h3Modal">
+                            
                         </h3>
-                        <button type="button" class="close-button" onclick="cw.vistaPostError()">
+                        <button type="button" class="close-button" onclick="cw.vistaPostGameOver()">
                             <ion-icon name="close-outline" class="close-button2"></ion-icon>
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <div id="modal-body">
+                    <!-- <div id="modal-body">
                         <p id="MsgModal" class="MsgModal">
                         </p>
-                    </div>
+                    </div> -->
             </div>
         </div>
     </div>

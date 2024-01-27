@@ -13,15 +13,12 @@ function ClienteWS(){
     this.ini();
 
     this.crearPartida=function(){
-        console.log("hola0")
         if (this.email==undefined) {
             console.log("Tienes que estar registrado");
             return false;
         }
-        console.log("hola1");
         console.log(this.email);
         this.socket.emit("crearPartida",{"email":this.email});
-        console.log("hola2");
         return true;
     };
 
@@ -33,6 +30,17 @@ function ClienteWS(){
         // cw.showWaitingModal(datos.codigo);
         // cw.page = 'waiting';
     });
+
+    this.crearPartida1Jugador=function(){
+        if (this.email==undefined) {
+            console.log("Tienes que estar registrado");
+            return false;
+        }
+        // console.log(this.email);
+        this.socket.emit("crearPartida1Jugador",{"email":this.email});
+        this.init();
+        // return true;
+    };
 
     this.unirAPartida=function(code){
         // console.log("Esto no funciona :" + cw.gameCodeInput.value);
@@ -52,7 +60,7 @@ function ClienteWS(){
         cw.handleInit(number);
     });
 
-    this.socket.on('gameState', function (gameState) {
+    this.socket.on('gameState', function (gameState, flag) {
         console.log("hola game state");
         if (!cw.gameActive) {
             return;
@@ -60,7 +68,7 @@ function ClienteWS(){
         console.log("he entrado");
         console.log({gameState});
         // gameState = JSON.parse(gameState);
-        requestAnimationFrame(() => cw.paintGame(gameState));
+        requestAnimationFrame(() => cw.paintGame(gameState, flag));
     });
 
     this.socket.on('gameOver', function (data) {
@@ -71,11 +79,13 @@ function ClienteWS(){
         cw.gameActive = false;
 
         if (data.winner === cw.playerNumber) {
-            alert('You Win!');
+            // alert('You Win!');
             console.log("you win");
+            cw.vistaGameOver("¡Victoria!", "¡Sigue jugando así!");
         } else {
-            alert('You Lose :(');
+            // alert('You Lose :(');
             console.log("you lose");
+            cw.vistaGameOver("¡Derrota!", "¡Ten más suerte la próxima vez!");
         }
     });
 
