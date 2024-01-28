@@ -13,7 +13,7 @@ function Sistema(test){
     this.agregarUsuario=function(usr, callback){
         let res={"email":-1};
         const {email} = usr;
-        console.log({callback, event: "agregar usuario1"});
+        console.log({callback, event: "agregar usuario1", u:this.usuarios});
         if (!this.usuarios[email]){
           this.usuarios[email]=new Usuario(email);
           console.log({email});
@@ -61,8 +61,10 @@ function Sistema(test){
 
     this.eliminarUsuario=function(email){
         let res={"usuario_eliminado":-1};
+        console.log({thisu:this.usuarios});
         if (this.usuarios[email]){
-            delete(this.usuarios[email]);
+            delete this.usuarios[email];
+            console.log({thisu:this.usuarios});
             console.log("Se ha eliminado el usuario con email " + email);
             res.usuario_eliminado = email;
         }
