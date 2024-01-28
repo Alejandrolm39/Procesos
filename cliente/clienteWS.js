@@ -93,15 +93,13 @@ function ClienteWS(){
     });
 
     this.socket.on('unknownCode', function () {
+        cw.gameActive = false;
         cw.handleUnknownCode();
-        cw.reset();
-        alert('Unknown Game Code');
     });
 
     this.socket.on('tooManyPlayers', function () {
+        cw.gameActive = false;
         cw.handleTooManyPlayers();
-        cw.reset();
-        alert('This game is already in progress');
     });
 
     // this.newGame = function () {

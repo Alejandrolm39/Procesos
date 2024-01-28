@@ -443,12 +443,15 @@ function ControlWeb(){
 
       this.handleUnknownCode = function() {
         cw.reset();
-        alert('Unknown Game Code')
+        $("#fmGameScreen").remove();
+        cw.vistaError("Este código de partida no existe", "joinModal");
+        // alert('Unknown Game Code')
       }
       
       this.handleTooManyPlayers = function() {
         cw.reset();
-        alert('This game is already in progress');
+        $("#fmGameScreen").remove();
+        cw.vistaError("Ya hay dos jugadores jugando esta partida", "joinModal");
       }
 
       this.reset = function() {

@@ -40,13 +40,14 @@ module.exports.enviarEmail=async function(direccion, key,men) {
         </html>
     `;
 
+    //texto para ver si deja hacer push
     const result = await transporter.sendMail({
         from: 'alejandrolm35@gmail.com',
         to: direccion,
         subject: 'Confirmar cuenta',
         text: 'Pulsa aquí para confirmar cuenta',
         html: correoHTML
-        // '<p>Bienvenido a Sistema</p><p><a href="'+url+'confirmarUsuario/'+direccion+'/'+key+'">Pulsa aquí para confirmar cuenta</a></p>'
+        // '<p>Bienvenido aaa Sistema</p><p><a href="'+url+'confirmarUsuario/'+direccion+'/'+key+'">Pulsa aquí para confirmar cuenta</a></p>'
     });
     console.log(JSON.stringify(result, null, 4));
 }   

@@ -79,8 +79,16 @@ function WSServer(){
                 console.log(datos.email+" se une a partida "+codigo);
 
                 let res = sistema.unirAPartida(datos.email,codigo);
-                if (res.codigo!=-1){
+                if (res.codigo!=-1 && res.codigo!=-2){
                     socket.join(codigo);
+                }
+                else if (res.codigo==-1){
+                    socket.emit('unknownCode');
+                    return;
+                }
+                else {
+                    socket.emit('tooManyPlayers');
+                    return;
                 }
                 console.log(res);
                 // srv.enviarAlRemitente(socket,"unidoAPartida",res);

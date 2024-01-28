@@ -191,6 +191,7 @@ function Sistema(test){
         console.log("codigo fn fn unir partida: " + codigo);
         let res={codigo:-1, email:email};
         let partida=this.partidas[codigo];
+        console.log({partida, event:"partida a ver"});
         if (partida){
           if (partida.jugadores.length<partida.maxJug){
             partida.jugadores.push(email);
@@ -198,6 +199,7 @@ function Sistema(test){
             console.log("El usuario con email "+email+" se ha unido a la partida con codigo "+codigo);
             res.codigo=partida.codigo;
           }
+          else {res.codigo=-2}
         }
         // res.codigo = 1;
         return res;
