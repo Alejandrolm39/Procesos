@@ -61,10 +61,10 @@ function Sistema(test){
 
     this.eliminarUsuario=function(email){
         let res={"usuario_eliminado":-1};
-        console.log({thisu:this.usuarios});
+        console.log({Event: "eliminar usuario1", thisu:this.usuarios});
         if (this.usuarios[email]){
             delete this.usuarios[email];
-            console.log({thisu:this.usuarios});
+            console.log({Event: "eliminar usuario1", thisu:this.usuarios});
             console.log("Se ha eliminado el usuario con email " + email);
             res.usuario_eliminado = email;
         }
