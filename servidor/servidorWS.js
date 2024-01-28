@@ -163,12 +163,12 @@ function WSServer(){
         //     .emit('gameOver', JSON.stringify({ winner })); //emite el evento gameOver con el resultado del juego serializado
         if (flag){
             console.log({winner});
-            socket.to(room).emit('gameOver', {winner});
-            socket.emit('gameOver', {winner});
+            socket.to(room).emit('gameOver', {winner, flag});
+            socket.emit('gameOver', {winner, flag});
         }
         else {
             console.log({winner});
-            socket.emit('gameOver', {winner});
+            socket.emit('gameOver', {winner, flag});
         }
     }
 };

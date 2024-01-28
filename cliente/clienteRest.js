@@ -10,9 +10,9 @@ function ClienteRest(){
             }
             else{
                 console.log("El nick ya está ocupado");
-                msg="El nick " + email + " ya está ocupado";
+                // msg="El nick " + email + " ya está ocupado";
             }
-            cw.mostrarMsg(msg);
+            // cw.mostrarMsg(msg);
         })
     }
 
@@ -103,7 +103,7 @@ function ClienteRest(){
                     console.log("El email ya está ocupado");
                 }
                     cw.limpiar();
-                    cw.mostrarMsg(msg);
+                    // cw.mostrarMsg(msg);
             },
             error:function(xhr, textStatus, errorThrown){  
                 //console.log(JSON.parse(xhr.responseText));

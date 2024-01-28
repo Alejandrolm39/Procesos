@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./cliente/styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Repetir juego</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div id="fmRepeatGame" class="card p-4 repeatGameModal">
+                    <div>
+                        <div>
+                            <h3 class="h3ModalRepeat">
+                                ¿Quieres volver a jugar otra partida?
+                            </h3>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-success repeatGameBoton" id="btnRepeatGame">
+                                Si
+                            </button>
+                            <button type="submit" class="btn btn-success repeatGameBoton" onclick="$('#fmRepeatGame').remove();">
+                                No
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

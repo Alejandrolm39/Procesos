@@ -13,7 +13,7 @@ function Sistema(test){
     this.agregarUsuario=function(usr, callback){
         let res={"email":-1};
         const {email} = usr;
-        console.log({email, event: "agregar usuario"});
+        console.log({callback, event: "agregar usuario1"});
         if (!this.usuarios[email]){
           this.usuarios[email]=new Usuario(email);
           console.log({email});

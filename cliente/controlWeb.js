@@ -12,6 +12,7 @@ function ControlWeb(){
     // const gameCodeInput = document.getElementById('gameCodeInput');
 
     // this.canvas; 
+    this.flag = true;
     this.ctx;
     this.playerNumber;
     this.gameActive = false;
@@ -130,6 +131,7 @@ function ControlWeb(){
           if (!rest.usuarioActivo(email)){
             rest.agregarUsuario(email);
           }
+          this.flag=true;
           console.log("Comprobar sesión email: " + email);
           ws.email = email;
           console.log("Comprobar sesión email: " + ws.email);
@@ -233,6 +235,8 @@ function ControlWeb(){
           // $("#BienvenidoText2").hide();
           // $("#fmLogin").remove();
           // $("#fmRegistro").remove();
+          this.flag=true;
+          $('#fmRepeatGame').remove();
           $('#fmGameOverModal').remove();
           $("#BienvenidoText1").hide();
           $("#BienvenidoText2").hide();
@@ -352,8 +356,15 @@ function ControlWeb(){
       }
 
       this.vistaPostGameOver = function(){
+        if (!this.flag){
+          cw.mostrarRepeatGameModal();
+         }
         $('#fmGameOverModal').remove();
       }
+
+      // this.vistaNegarJugar = function(){
+      //   $('#fmRepeatGame').remove();
+      // }
 
       this.mostrarJoinGameModal = function(){
         $("#fmMultiplayerMenu").remove();
@@ -372,6 +383,16 @@ function ControlWeb(){
               cw.vistaError("Ingrese un código de partida", "joinModal");
               console.log("Fucking panza");
             }
+          });
+        });
+      }
+
+      this.mostrarRepeatGameModal = function(){
+        $("#repeatGame").load("./cliente/repeatGame.html", function () {
+          $("#btnRepeatGame").on("click", function () {
+            $('#fmGameOverModal').remove();
+            $('#fmRepeatGame').remove();
+              ws.crearPartida1Jugador();
           });
         });
       }

@@ -74,6 +74,7 @@ function ClienteWS(){
         }
         // data = JSON.parse(data);
         cw.gameActive = false;
+        cw.flag = data.flag;
 
         if (data.winner === cw.playerNumber) {
             // alert('You Win!');
@@ -124,7 +125,7 @@ function ClienteWS(){
         if(this.canvasElement){
             cw.ctx = this.canvasElement.getContext('2d');
 
-            this.canvasElement.width = this.canvasElement.height = 350;
+            this.canvasElement.width = this.canvasElement.height = 500;
 
             cw.ctx.fillStyle = cw.BG_COLOUR;
             cw.ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);

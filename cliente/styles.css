@@ -7,7 +7,7 @@
     background-position: center center;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 60vh;
     /* width: 100vh; */
 }
 
@@ -18,9 +18,23 @@
     padding: 30px;
     max-width: 400px;
     margin: auto;
-    margin-top: 0px;
+    /* margin-top: 0px; */
     position: relative;
     z-index: 1;
+}
+
+.repeatGameModal{
+    background: #1b2a49;
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; 
+    margin-top: -400px;
+    text-align: center;
+    max-width: 450px;
 }
 
 .registro {
@@ -108,7 +122,7 @@ input:focus :valid{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2; 
-    margin-top: -30px;
+    margin-top: -20px;
 }
 
 .close-button {
@@ -132,6 +146,14 @@ input:focus :valid{
     margin-bottom: 10px; 
 }
 
+.h3ModalRepeat {
+    color: #F9FAFB; 
+    font-size: 18px; 
+    margin-bottom: 10px; 
+    /* text-align: center; */
+}
+
+
 .MsgModal {
     color: #F9FAFB; 
     font-size: 16px;
@@ -149,17 +171,40 @@ input:focus :valid{
     border: 0px;
     margin-top: 20px;
 }
+.menuPrincipalBoton:hover {
+    background-color: #869fcf; 
+}
+
 
 .joinGameBoton{
     background-color: #1b2a49;
     border: 0px;
     margin-top: 5px;
 }
+.joinGameBoton:hover {
+    background-color: #869fcf; 
+}
+
+.repeatGameBoton{
+    background-color: #2e4063;
+    border: 0px;
+    margin-top: 5px;
+    padding: 8px 50px; 
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+.repeatGameBoton:hover {
+    background-color: #869fcf; 
+}
 
 .joinGameBotonMenu{
     background-color: #1b2a49;
     border: 0px;
     margin-top: 15px;
+}
+.joinGameBotonMenu:hover {
+    background-color: #869fcf; 
 }
 
 .or{

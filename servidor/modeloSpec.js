@@ -2,10 +2,11 @@ const modelo = require("./modelo.js");
 
 describe('El sistema', function() {
   let sistema;
-  
+  let usr1 = { email: "usr1@test.es", password: "usr1", nick: "usr1" };
+  let usr2 = { email: "usr2@test.es", password: "usr2", nick: "usr2" };
+
   beforeEach(function() {
     sistema=new modelo.Sistema(true);
-    usr={"nick":"Pepe", "email":"pepe@pepe.es"};
   });
   
   it('inicialmente no hay usuarios', function() {
@@ -16,11 +17,14 @@ describe('El sistema', function() {
   it('agregar usuario', function() {
     let res = sistema.numeroUsuarios();
     expect(res.num).toEqual(0);
-    sistema.agregarUsuario(usr);
+
+    sistema.agregarUsuario({email: usr1.email}, usr1);
     res = sistema.numeroUsuarios();
     expect(res.num).toEqual(1);
-    expect(sistema.usuarios[usr.email].nick).toEqual("Pepe");
-    expect(sistema.usuarios[usr.email].nick).toEqual("pepe@pepe.es");
+
+    expect(sistema.usuarios[usr1.email].nick).toEqual("usr1");
+    expect(sistema.usuarios[usr1.email].email).toEqual("usr1@test.es");
+    expect(sistema.usuarios[usr1.email].password).toEqual("usr1");
   })
 
   it('eliminar usuario', function() {
@@ -65,28 +69,27 @@ describe('El sistema', function() {
     res = sistema.numeroUsuarios();
     expect(res.num).toEqual(2);
   });
-
-  // describe("Métodos que acceden a datos", function(){
-
-  //   let usrTest={"email":"test@test.es","nick":"test"}
-    
-  //   beforeEach(function(done){
-  //     sistema.cad.conectar(function({
-
-  //     }))
-  //     // sistema.cad.registrarUsuario(usrTest,function(res){
-  //       done();
-  //     })
-  //   })
-    
-  //   xit("Inicio de sesión correcto", function(){
-
-  //   })
-
-  //   xit("Inicio de sesión incorrecto", function(){
-
-  //   })
-  // })
-
-
 })
+
+// describe("Metodos que acceden a datos", function () {    
+//   beforeEach(function (done) {
+//     sistema.cad.conectar(function () {
+//         done();
+//     });
+//   })
+
+//   it("Inicio de sesión correcto", function (done) {
+//     sistema.loginUsuario(usrTest, function(res){
+//       expect(res.email).toEqual(usrTest.email);
+//       done();
+//     });
+//   });
+
+//   it("Inicio de sesión incorrecto", function (done) {
+//     sistema.loginUsuario(usrTest2, function(res){
+//       expect(res.email).toEqual(-1);
+//       done();
+//     });
+//   });
+// });
+

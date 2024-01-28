@@ -120,8 +120,6 @@ app.get("/agregarUsuario/:email",haIniciado,function(request,response){
     let email=request.params.email;
     console.log({email, event: "agregar de index"});
     sistema.agregarUsuario({email}, (usr) => {response.send(usr);});
-    // let res=sistema.agregarUsuario(email);
-    // response.send(res);
 });
 
 app.get("/obtenerUsuarios",haIniciado,function(request, response){
