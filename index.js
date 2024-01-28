@@ -22,6 +22,7 @@ io.listen(httpServer);
 const PORT = process.env.PORT || 3000;
 
 const haIniciado=function(request,response,next){
+    console.log({request, event:"request user"});
     if (request.user){
         next();
     }
