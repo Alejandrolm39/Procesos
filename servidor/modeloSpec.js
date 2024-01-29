@@ -2,7 +2,7 @@ const modelo = require("./modelo.js");
 
 describe('El sistema', function() {
   let sistema;
-  const usr1 = { email: "usr1@test.es", password: "usr1", nick: "usr1" };
+  const usr1 = { email: "alejandrolm35@gmail.com", password: "asd", nick: "alejandro" };
   const usr2 = { email: "usr2@test.es", password: "usr2", nick: "usr2" };
 
   beforeEach(function() {
@@ -23,7 +23,7 @@ describe('El sistema', function() {
       expect(res.num).toEqual(1);
 
       // expect(sistema.usuarios[usr1.email].nick).toEqual("usr1");
-      expect(sistema.usuarios[usr1.email].email).toEqual("usr1@test.es");
+      expect(sistema.usuarios[usr1.email].email).toEqual("alejandrolm35@gmail.com");
       // expect(sistema.usuarios[usr1.email].password).toEqual("usr1");
     });
   })
@@ -76,27 +76,56 @@ describe('El sistema', function() {
       });
     });
   });
+
+  describe("Metodos que acceden a datos", function () {    
+    beforeEach(function (done) {
+      sistema.cad.conectar(function () {
+          done();
+      });
+    })
+  
+    it("Inicio de sesión correcto", function (done) {
+      sistema.loginUsuario(usr1, function(res){
+        expect(res.email).toEqual(usr1.email);
+        done();
+      });
+    });
+  
+    it("Inicio de sesión incorrecto", function (done) {
+      sistema.loginUsuario(usr2, function(res){
+        expect(res.email).toEqual(-1);
+        done();
+      });
+    });
+  });
+
+  // describe("Metodos relacionados con las partidas", function () {
+    
+  //   beforeEach(function () {
+  //     sistema.agregarUsuario(usr1.email, function(){});
+  //     sistema.agregarUsuario(usr2.email, function(){});
+  //   });
+  
+    // it("Crear una partida", function () {
+    //   sistema.crearPartida(usr2.email);
+    //   let lista = sistema.obtenerPartidasDisponibles();
+    //   expect(lista.length).toEqual(1);
+    // });
+  
+    // it("Unirse a una partida", function () {
+    //   let code = sistema.crearPartida(usr1.email);
+    //   sistema.unirAPartida(usr2.email,code);
+    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(0);
+    // });
+    
+    // it("Eliminar una partida", function () {
+    //   let code = sistema.crearPartida(usr1.email);
+    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(1);
+    //   sistema.unirAPartida(usr2.email,code);
+    //   sistema.eliminarPartida(code);
+    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(0);
+    // });
+    
+  // });
 })
-
-// describe("Metodos que acceden a datos", function () {    
-//   beforeEach(function (done) {
-//     sistema.cad.conectar(function () {
-//         done();
-//     });
-//   })
-
-//   it("Inicio de sesión correcto", function (done) {
-//     sistema.loginUsuario(usrTest, function(res){
-//       expect(res.email).toEqual(usrTest.email);
-//       done();
-//     });
-//   });
-
-//   it("Inicio de sesión incorrecto", function (done) {
-//     sistema.loginUsuario(usrTest2, function(res){
-//       expect(res.email).toEqual(-1);
-//       done();
-//     });
-//   });
-// });
 

@@ -176,7 +176,10 @@ function Sistema(test){
             codigo = this.obtenerCodigo();
             newPartida=new Partida(codigo);
             newPartida.jugadores.push(creator);
+            console.log({newPartida, event:"Nueva partida creada"});
             this.partidas[codigo]=newPartida;
+            let lista = this.obtenerPartidasDisponibles();
+            console.log(lista.length);
             res.codigo=newPartida.codigo;
           }
         }
@@ -213,7 +216,7 @@ function Sistema(test){
           let partida=this.partidas[key];
           let creador = partida.jugadores[0];
           if (partida.jugadores.length<partida.maxJug){
-            lista.push({codigo:partida.codigo, email:creador.email});
+            lista.push({codigo:partida.codigo, email:creador});
           }
         }
         return lista;
@@ -227,7 +230,7 @@ function Sistema(test){
             res.partida_eliminada = codigo;
         }
         else {
-            console.log("No existe una partida con codigo " + codigo);
+            console.log("No existe una partida cuyo codigo sea " + codigo);
         }
         return res;
       }
