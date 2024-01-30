@@ -34,7 +34,7 @@ function Sistema(test){
     //     });
     // }
 
-    this.usuarioOAuth = function (usr, flag, callback) {
+    this.usuarioOAuth = function (usr, callback) {
         let copia = usr;
         usr.confirmada = true;
         const sistema = this;
@@ -44,9 +44,7 @@ function Sistema(test){
             obj.email = copia;
           }
           // console.log({obj});
-          if (flag){
             // sistema.agregarUsuario(obj, callback);
-          }
           // callback(obj);
         });
       };

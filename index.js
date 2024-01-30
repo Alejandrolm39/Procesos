@@ -89,7 +89,7 @@ app.get("/good", function (req, res) {
       case "github":
         console.log(req.user);
         let email2 = req.user.username;
-        sistema.usuarioOAuth({ email: email2 }, true, function (obj) {
+        sistema.usuarioOAuth({ email: email2 }, function (obj) {
           res.cookie("email", obj.email);
           res.redirect("/");
         });
