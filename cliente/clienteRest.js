@@ -178,9 +178,10 @@ function ClienteRest(){
       };  
 
       this.cerrarSesion = function () {
-        $.getJSON("/cerrarSesion", function () {
+        const url = `/cerrarSesion/${$.cookie("email")}`
+        $.removeCookie("email");
+        $.getJSON(url, function () {
           console.log("Sesión cerrada");
-          $.removeCookie("email");
         });
       };
 }

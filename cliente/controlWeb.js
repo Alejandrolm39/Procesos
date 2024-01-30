@@ -3,6 +3,7 @@ function ControlWeb(){
     this.BG_COLOUR = '#231f20';
     this.SNAKE_COLOUR = '#c2c2c2';
     this.FOOD_COLOUR = '#e66916';
+    document.title="home";
     // const ws = new ClienteWS();
 
     // const gameScreen = $("#fmGameScreen");
@@ -165,7 +166,7 @@ function ControlWeb(){
        
     
     this.salir=function(){
-        $.removeCookie("email");
+        // $.removeCookie("email");
         location.reload();
         rest.cerrarSesion();
     }
@@ -190,6 +191,7 @@ function ControlWeb(){
         $("#fmRegistro").remove();
         $("#fmLogin").remove();
         $("#registro").load("./cliente/registro.html",function(){
+          document.title="registro";
             $("#btnRegistro").on("click",function(event){
                 event.preventDefault();
                 let email=$("#email").val();
@@ -212,6 +214,7 @@ function ControlWeb(){
         $("#fmLogin").remove();
         $("#fmRegistro").remove();
         $("#login").load("./cliente/login.html", function () {
+          document.title="login";
           $("#btnLogin").on("click", function (event) {
             event.preventDefault();
             let email = $("#email").val();
@@ -236,6 +239,7 @@ function ControlWeb(){
           // $("#fmLogin").remove();
           // $("#fmRegistro").remove();
           this.flag=true;
+          $('#fmJoinErrorModal').remove();
           $('#fmRepeatGame').remove();
           $('#fmGameOverModal').remove();
           $("#BienvenidoText1").hide();
@@ -244,11 +248,13 @@ function ControlWeb(){
           $("#fmJoinGame").remove();
           $("#fmGameScreen").remove();
           $("#menu").load("./cliente/mainMenu.html", function () {
+            document.title="menuPrincipal";
             $("#btnTraditionalSnake").on("click", function () {
               // self.canvas = $('#canvas');
               $("#fmMultiplayerMenu").remove();
               $("#fmMainMenu").remove();
               $("#gameScreen").load("./cliente/gameScreen.html", function () {
+                document.title="pantallaJuego";
                 $("#gameCodeText1").hide();
                 // self.canvas = document.getElementById('canvas');
                 // self.canvas = $("#canvas")[0];
@@ -275,10 +281,12 @@ function ControlWeb(){
           $("#fmJoinGame").remove();
           $("#fmGameScreen").remove();
           $("#menu").load("./cliente/multiplayerMainMenu.html", function () {
+            document.title="menuMultijugador";
             $("#btnNewGame").on("click", function () {
               // self.canvas = $('#canvas');
               $("#fmMultiplayerMenu").remove();
               $("#gameScreen").load("./cliente/gameScreen.html", function () {
+                document.title="pantallaJuego";
                 $("#gameCodeText1").show();
                 // Aquí puedes realizar acciones específicas después de cargar el contenido del juego
                 // self.canvas = document.getElementById('canvas');
@@ -369,6 +377,7 @@ function ControlWeb(){
       this.mostrarJoinGameModal = function(){
         $("#fmMultiplayerMenu").remove();
         $("#modalMsg").load("./cliente/joinGameModal.html", function () {
+          document.title="joinModal";
           $("#btnJoinGame2").on("click", function () {
             let code = $("#gameCodeInput").val();
             if (code) {

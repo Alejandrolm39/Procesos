@@ -177,8 +177,9 @@ app.get("/confirmarUsuario/:email/:key", function (request, response) {
     });
 });
 
-app.get("/cerrarSesion", haIniciado, function (request, response) {
-    let email = request.user.email;
+app.get("/cerrarSesion/:email", haIniciado, function (request, response) {
+    let email = request.params.email;
+    console.log({email, event: "email de cerrar sesion"});
     request.logout();
     response.redirect("/");
     if (email) {
