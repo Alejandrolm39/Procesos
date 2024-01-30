@@ -44,7 +44,7 @@ function Sistema(test){
             obj.email = copia;
           }
           // console.log({obj});
-          sistema.agregarUsuario(obj, callback);
+          // sistema.agregarUsuario(obj, callback);
           callback(obj);
         });
       };
