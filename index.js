@@ -96,7 +96,7 @@ app.get("/good", function (req, res) {
         break;
       case "google-one-tap":
         let email3 = req.user.emails[0].value;
-        sistema.usuarioOAuth({ email: email3 }, false, function (obj) {
+        sistema.usuarioOAuth({ email: email3 }, true, function (obj) {
         res.cookie("email", obj.email);
         res.redirect("/");
         });

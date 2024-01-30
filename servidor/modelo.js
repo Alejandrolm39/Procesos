@@ -45,7 +45,7 @@ function Sistema(test){
           }
           // console.log({obj});
           if (flag){
-            sistema.agregarUsuario(obj, callback);
+            // sistema.agregarUsuario(obj, callback);
           }
           // callback(obj);
         });
