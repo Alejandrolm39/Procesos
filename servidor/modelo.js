@@ -34,7 +34,7 @@ function Sistema(test){
     //     });
     // }
 
-    this.usuarioOAuth = function (usr, callback) {
+    this.usuarioOAuth = function (usr, flag, callback) {
         let copia = usr;
         usr.confirmada = true;
         const sistema = this;
@@ -44,7 +44,9 @@ function Sistema(test){
             obj.email = copia;
           }
           // console.log({obj});
-          sistema.agregarUsuario(obj, callback);
+          if (flag){
+            sistema.agregarUsuario(obj, callback);
+          }
           // callback(obj);
         });
       };
@@ -167,22 +169,27 @@ function Sistema(test){
 
     this.crearPartida=function(email){
         let res={codigo:-1};
-        console.log(email);
-        console.log({usuarios: this.usuarios});
+        // console.log(email);
+        // console.log({usuarios: this.usuarios});
         if (this.usuarios[email]){
-          console.log(this.usuarios[email]);
+          // console.log(this.usuarios[email]);
           creator=this.usuarios[email].email;
           if (creator){
             codigo = this.obtenerCodigo();
             newPartida=new Partida(codigo);
             newPartida.jugadores.push(creator);
-            console.log({newPartida, event:"Nueva partida creada"});
             this.partidas[codigo]=newPartida;
+            jugadores = this.obtenerJugadores(codigo);
+            console.log(codigo, "el codigo en crear partida es ese");
+            console.log("Jugsadores de la partida metequetengue: ", jugadores);
             let lista = this.obtenerPartidasDisponibles();
-            console.log(lista.length);
+            // console.log("antes de la lista");
+            // console.log(lista.length);
             res.codigo=newPartida.codigo;
+            console.log(res.codigo, "el cogido de res.codigo es");
           }
         }
+        console.log({res, event: "res es:"})
         return res;
         // return 1;
       }
@@ -220,6 +227,11 @@ function Sistema(test){
           }
         }
         return lista;
+      }
+      this.obtenerJugadores = function(codigo){
+        let partida=this.partidas[codigo];
+        console.log(partida.jugadores.length, "jugadores de obtener jugadores");
+        return partida.jugadores.length;
       }
   
       this.eliminarPartida=function(codigo){

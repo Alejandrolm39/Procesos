@@ -80,7 +80,7 @@ app.get("/good", function (req, res) {
     switch (req.user.provider) {
       case "google":
         let email = req.user.emails[0].value;
-        sistema.usuarioOAuth({ email: email }, function (obj) {
+        sistema.usuarioOAuth({ email: email }, true, function (obj) {
           res.cookie("email", obj.email);
           res.redirect("/");
         });
@@ -89,14 +89,14 @@ app.get("/good", function (req, res) {
       case "github":
         console.log(req.user);
         let email2 = req.user.username;
-        sistema.usuarioOAuth({ email: email2 }, function (obj) {
+        sistema.usuarioOAuth({ email: email2 }, true, function (obj) {
           res.cookie("email", obj.email);
           res.redirect("/");
         });
         break;
       case "google-one-tap":
         let email3 = req.user.emails[0].value;
-        sistema.usuarioOAuth({ email: email3 }, function (obj) {
+        sistema.usuarioOAuth({ email: email3 }, false, function (obj) {
         res.cookie("email", obj.email);
         res.redirect("/");
         });

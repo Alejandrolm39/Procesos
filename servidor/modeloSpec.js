@@ -102,29 +102,30 @@ describe('El sistema', function() {
   // describe("Metodos relacionados con las partidas", function () {
     
   //   beforeEach(function () {
-  //     sistema.agregarUsuario(usr1.email, function(){});
-  //     sistema.agregarUsuario(usr2.email, function(){});
+  //     sistema.agregarUsuario({email: usr1.email}, function(){});
+  //     sistema.agregarUsuario({email: usr2.email}, function(){});
   //   });
   
-    // it("Crear una partida", function () {
-    //   sistema.crearPartida(usr2.email);
-    //   let lista = sistema.obtenerPartidasDisponibles();
-    //   expect(lista.length).toEqual(1);
-    // });
+  //   it("Crear una partida", function () {
+  //     sistema.crearPartida(usr1.email);
+  //     let lista = sistema.obtenerPartidasDisponibles();
+  //     expect(lista.length).toEqual(1);
+  //   });
   
-    // it("Unirse a una partida", function () {
-    //   let code = sistema.crearPartida(usr1.email);
-    //   sistema.unirAPartida(usr2.email,code);
-    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(0);
-    // });
+  //   it("Unirse a una partida", function () {
+  //     let {codigo} = sistema.crearPartida(usr1.email);
+  //     expect(sistema.obtenerPartidasDisponibles().length).toEqual(1)
+  //     expect(sistema.obtenerJugadores(codigo)).toEqual(1);
+  //     sistema.unirAPartida(usr2.email,codigo);
+  //     expect(sistema.obtenerJugadores(codigo)).toEqual(2);
+  //   });
     
-    // it("Eliminar una partida", function () {
-    //   let code = sistema.crearPartida(usr1.email);
-    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(1);
-    //   sistema.unirAPartida(usr2.email,code);
-    //   sistema.eliminarPartida(code);
-    //   expect(sistema.obtenerPartidasDisponibles().length).toEqual(0);
-    // });
+  //   it("Eliminar una partida", function () {
+  //     let {codigo} = sistema.crearPartida(usr1.email);
+  //     expect(sistema.obtenerPartidasDisponibles().length).toEqual(1)
+  //     sistema.eliminarPartida(codigo);
+  //     expect(sistema.obtenerPartidasDisponibles().length).toEqual(0);
+  //   });
     
   // });
 })
