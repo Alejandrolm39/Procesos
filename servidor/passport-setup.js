@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: "4277beaccce867b9691a",
     clientSecret: "9c82f05b001b7b39f1b3006d87035d07276ab72e",
-    callbackURL: "http://arqbase-gh-co5nc3waja-ew.a.run.app/github/callback"
+    callbackURL: "https://arqbase-gh-co5nc3waja-ew.a.run.app/github/callback"
     },
 
     function(accessToken, refreshToken, profile, done) {
