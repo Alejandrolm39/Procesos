@@ -22,7 +22,7 @@ function ClienteWS(){
     this.socket.on("partidaCreada", () => {
         // this.code=datos.codigo;
         // logic.playerColor=datos.color;
-        console.log("llegué a partida creada clienteWS");
+        // console.log("llegué a partida creada clienteWS");
         this.init();
         // cw.showWaitingModal(datos.codigo);
         // cw.page = 'waiting';
@@ -42,7 +42,7 @@ function ClienteWS(){
     this.unirAPartida=function(code){
         // console.log("Esto no funciona :" + cw.gameCodeInput.value);
         // this.code=cw.gameCodeInput.value;
-        console.log(code);
+        // console.log(code);
         this.socket.emit("unirAPartida",{"email":this.email,"codigo":code});
         this.init();
     }
@@ -53,17 +53,17 @@ function ClienteWS(){
     });
 
     this.socket.on('init', function (number) {
-        console.log("llego al init cocket");
+        // console.log("llego al init cocket");
         cw.handleInit(number);
     });
 
     this.socket.on('gameState', function (gameState, flag) {
-        console.log("hola game state");
+        // console.log("hola game state");
         if (!cw.gameActive) {
             return;
         }
-        console.log("he entrado");
-        console.log({gameState});
+        // console.log("he entrado");
+        // console.log({gameState});
         // gameState = JSON.parse(gameState);
         requestAnimationFrame(() => cw.paintGame(gameState, flag));
     });
@@ -88,7 +88,7 @@ function ClienteWS(){
     });
 
     this.socket.on('gameCode', function (gameCode) {
-        console.log("Está llegando");
+        // console.log("Está llegando");
         cw.handleGameCode(gameCode);
     });
 
@@ -132,12 +132,12 @@ function ClienteWS(){
             cw.gameActive = true;
         }
         else{
-            console.log("vaya sinson");
+            console.log("");
         }
     };
 
     this.keydown = function (e) {
-        console.log("hola estoy en la keydown");
+        // console.log("hola estoy en la keydown");
         ws.socket.emit('keydown', e.keyCode);
     };
 }

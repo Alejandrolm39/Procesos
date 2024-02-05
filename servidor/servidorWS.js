@@ -12,11 +12,11 @@ function WSServer(){
             console.log("Capa WS activa");
 
             socket.on("crearPartida",function(datos){
-                console.log({datos, event: "crear partida"});
+                // console.log({datos, event: "crear partida"});
                 // let {codigo} = sistema.crearPartida(datos.email);
                 let {codigo} = sistema.crearPartida(datos.email);
-                console.log({codigo});
-                console.log("hola hola caracola");
+                // console.log({codigo});
+                // console.log("hola hola caracola");
                 if (codigo !=-1){
                     socket.join(codigo);
                 }
@@ -128,7 +128,7 @@ function WSServer(){
     }
 
     this.enviarAlRemitente=function(socket,mensaje,datos){
-        console.log("hola de nuevo sinson");
+        // console.log("hola de nuevo sinson");
         socket.emit(mensaje,datos);
     }
     

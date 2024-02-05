@@ -126,16 +126,16 @@ function ControlWeb(){
 
     this.comprobarSesion=function(){
         let email= $.cookie("email")
-        console.log({email, event: "comprobar sesion"});
+        // console.log({email, event: "comprobar sesion"});
         // localStorage.getItem("email");
         if (email){
           if (!rest.usuarioActivo(email)){
             rest.agregarUsuario(email);
           }
           this.flag=true;
-          console.log("Comprobar sesión email: " + email);
+          // console.log("Comprobar sesión email: " + email);
           ws.email = email;
-          console.log("Comprobar sesión email: " + ws.email);
+          // console.log("Comprobar sesión email: " + ws.email);
           $("#NavBarLogin").hide();
           $("#NavBarRegister").hide();
           $("#NavBarExit").removeClass("d-none");
@@ -390,7 +390,7 @@ function ControlWeb(){
             else{
               // $("#fmJoinGame").remove();
               cw.vistaError("Ingrese un código de partida", "joinModal");
-              console.log("Fucking panza");
+              // console.log("Fucking panza");
             }
           });
         });
@@ -415,7 +415,7 @@ function ControlWeb(){
       this.paintGame = function(state, flag) {
         this.ctx.fillStyle = this.BG_COLOUR;
         this.ctx.fillRect(0, 0, ws.canvasElement.width, ws.canvasElement.height);
-        console.log({state});
+        // console.log({state});
         let food = state.food;
         let gridsize = state.gridsize;
         let size = ws.canvasElement.width / gridsize;
